@@ -37,7 +37,12 @@ module.exports = class JestRunner extends EventEmitter {
         return file.path
       })
       childProcess.exec('npm test -- ' + paths.join(' '), (err, stdout, stderr) => {
-        const testCount = Number(stderr.match(/\nTests:.*?(\d+)\stotal/)[1])
+        let testCount = paths.length
+
+        const testCountMatch = stderr.match(/\nTests:.*?(\d+)\stotal/)
+        if (testCountMatch) {
+          testCount = Number(testCountMatch[1])
+        }
 
         resolve({
           // NOTE: All test result objects are the same. Only the `tests` array

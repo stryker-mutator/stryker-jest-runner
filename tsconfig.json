@@ -6,18 +6,20 @@
         "moduleResolution": "node",
         "rootDir": ".",
         "sourceMap": true,
-        "removeComments": false,
         "declaration": true,
         "forceConsistentCasingInFileNames": true,
         "allowJs": false,
         "noUnusedLocals": true,
         "noImplicitReturns": true,
-        "strictNullChecks": true
+        "lib": [
+            "es5",
+            "es2015.promise"
+        ]
     },
     "exclude": [
         "node_modules",
-        "testResources",
-        "**/*.d.ts",
-        "*.d.ts"
+        "src/**/*.d.ts",
+        "test/**/*.d.ts",
+        "testResources"
     ]
 }

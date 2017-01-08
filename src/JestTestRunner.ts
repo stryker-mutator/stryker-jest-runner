@@ -38,7 +38,9 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
   constructor(options: RunnerOptions) {
     super();
 
-    this.options = _.assign(DEFAULT_OPTIONS);
+    this.options = _.assign(DEFAULT_OPTIONS, {
+      rootDir: process.cwd()
+    });
     log.debug(`Received options ${JSON.stringify(options)}`);
     
     const _testRegex = new RegExp(this.options.testRegex);
@@ -84,8 +86,7 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
   }
 
   private processJestResults(results: any): RunResult {
-    if (results.length !== 1) log.warn(`Expected each Jest invocation to yield one test result, but got ${results.length}`);
-    log.debug(`Jest returned ${JSON.stringify(results)}`);
+    log.debug(`Jest returned ${JSON.stringify(results.length)} results`);
     const aggregatedResults = results
       .map((result: any) => result.testResults)
       .reduce((result1: any[], result2: any[]) => result1.concat(result2), []);
@@ -112,6 +113,7 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
   private createTestStatus(result: any): TestStatus {
     switch (result.status) {
       case 'passed': return TestStatus.Success;
+      case 'failed': return TestStatus.Failed;
       default      : log.warn(`Got unexpected test status ${result.status}`); return null;
     }
   }

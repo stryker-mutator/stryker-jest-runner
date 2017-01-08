@@ -50,6 +50,7 @@
     "istanbul": "^0.4.4",
     "jest": "^18.0.0",
     "jest-cli": "^18.0.0",
+    "jest-runtime": "^18.1.0",
     "load-grunt-tasks": "^3.5.2",
     "mocha": "^3.0.2",
     "sinon": "^1.17.5",

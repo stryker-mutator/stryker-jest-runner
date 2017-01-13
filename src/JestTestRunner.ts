@@ -79,9 +79,9 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
     log.error(`An error occured while invoking Jest: ${error.stack}`);
     return {
       coverage: undefined,
-      tests: undefined,
+      tests: [],
       status: RunStatus.Error,
-      errorMessages: [error.message]
+      errorMessages: [ `${error.name}: ${error.message}` ]
     };
   }
 

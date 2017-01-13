@@ -79,5 +79,31 @@ describe('JestTestRunner', function () {
                 return true;
             });
     });
+
+    describe('when an error occures while running tests', () => {
+
+        before(() => {
+            const testRunnerOptions = {
+                files: [
+                    { path: 'testResources/sampleProject/src/Error.js', mutated: true, included: true },
+                    { path: 'testResources/sampleProject/src/__tests__/ErrorSpec.js', mutated: true, included: true }],
+                port: 9879,
+                strykerOptions: { logLevel: 'trace' }
+            };
+            sut = new JestTestRunner(testRunnerOptions);
+            return sut.init();
+        });
+
+        it('should report Error with the error message', () => {
+            return expect(sut.run()).to.eventually.satisfy((runResult: RunResult) => {
+                expectToHaveSuccessfulTests(runResult, 0);
+                expectToHaveFailedTests(runResult, []);
+                expect(runResult.status).to.be.eq(RunStatus.Error);
+                expect(runResult.errorMessages.length).to.equal(1);
+                expect(runResult.errorMessages[0]).to.contain('ReferenceError: someGlobalVariableThatIsNotDeclared is not defined');
+                return true;
+            });
+        });
+    });
   });
 });

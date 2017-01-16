@@ -9,11 +9,11 @@ describe('JestTestRunner', function () {
     let sut: JestTestRunner;
     this.timeout(10000);
 
-    let expectToHaveSuccessfulTests = (result: RunResult, n: number) => {
+    const expectToHaveSuccessfulTests = (result: RunResult, n: number) => {
         expect(result.tests.filter(t => t.status === TestStatus.Success)).to.have.length(n);
     };
 
-    let expectToHaveFailedTests = (result: RunResult, expectedFailureMessages: string[]) => {
+    const expectToHaveFailedTests = (result: RunResult, expectedFailureMessages: string[]) => {
         const actualFailedTests = result.tests.filter(t => t.status === TestStatus.Failed);
         expect(actualFailedTests).to.have.length(expectedFailureMessages.length);
         actualFailedTests.forEach(failedTest => expect(failedTest.failureMessages[0]).to.contain(expectedFailureMessages.shift()));
@@ -78,9 +78,10 @@ describe('JestTestRunner', function () {
                 expect(runResult.status).to.be.eq(RunStatus.Complete);
                 return true;
             });
+        });
     });
 
-    describe('when an error occures while running tests', () => {
+    describe('when an error occurs while running tests', () => {
 
         before(() => {
             const testRunnerOptions = {
@@ -105,5 +106,30 @@ describe('JestTestRunner', function () {
             });
         });
     });
-  });
+
+    describe('when no error occured and no test is performed', () => {
+
+        before(() => {
+            const testRunnerOptions = {
+                files: [
+                    { path: 'testResources/sampleProject/src/Add.js', mutated: true, included: true },
+                    { path: 'testResources/sampleProject/src/__tests__/EmptySpec.js', mutated: true, included: true }],
+                port: 9880,
+                strykerOptions: {}
+            };
+            sut = new JestTestRunner(testRunnerOptions);
+            return sut.init();
+        });
+
+        it('should report Complete without errors', () => {
+            return expect(sut.run()).to.eventually.satisfy((runResult: RunResult) => {
+                expectToHaveSuccessfulTests(runResult, 0);
+                expectToHaveFailedTests(runResult, []);
+                expect(runResult.status).to.be.eq(RunStatus.Complete);
+                expect(runResult.errorMessages.length).to.equal(0);
+                return true;
+            });
+        });
+    });
+
 });

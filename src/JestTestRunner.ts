@@ -37,11 +37,12 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
 
   constructor(options: RunnerOptions) {
     super();
+    log.debug(`Received options ${JSON.stringify(options)}`);
 
     this.options = _.assign(DEFAULT_OPTIONS, {
       rootDir: process.cwd()
     });
-    log.debug(`Received options ${JSON.stringify(options)}`);
+    log.debug(`Using options ${JSON.stringify(this.options)}`);
     
     const _testRegex = new RegExp(this.options.testRegex);
     const isTest = (file: string) => _testRegex.test(file);
@@ -68,9 +69,9 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
       .catch((error: Error) => this.catchError(error));
   }
 
-  private runTests(hasteMap: any): Promise<any[]> {
+  private runTests(hasteContext: any): Promise<any[]> {
     const promises = this.paths.map((specPath: string) => {
-      return runTest(path.resolve(specPath), this.options, hasteMap.resolver);
+      return runTest(path.resolve(specPath), this.options, hasteContext.resolver);
     });
     return Promise.all(promises);
   }

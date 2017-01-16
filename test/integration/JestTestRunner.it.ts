@@ -132,4 +132,27 @@ describe('JestTestRunner', function () {
         });
     });
 
+    describe('when adding an error file with included: false', () => {
+
+        before(() => {
+            const testRunnerOptions = {
+                files: [
+                    { path: 'testResources/sampleProject/src/Add.js', mutated: true, included: true },
+                    { path: 'testResources/sampleProject/src/__tests__/AddSpec.js', mutated: false, included: true },
+                    { path: 'testResources/sampleProject/src/Error.js', mutated: false, included: false }],
+                port: 9881,
+                strykerOptions: {}
+            };
+            sut = new JestTestRunner(testRunnerOptions);
+            return sut.init();
+        });
+
+        it('should report Complete without errors', () => {
+            return expect(sut.run()).to.eventually.satisfy((runResult: RunResult) => {
+                expect(runResult.status).to.be.eq(RunStatus.Complete);
+                return true;
+            });
+        });
+  });
+
 });

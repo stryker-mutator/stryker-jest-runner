@@ -28,9 +28,10 @@
   "devDependencies": {
     "@types/chai": "^3.4.32",
     "@types/chai-as-promised": "0.0.29",
-    "@types/lodash": "^4.14.34",
+    "@types/estree": "0.0.34",
+    "@types/lodash": "^4.14.37",
     "@types/log4js": "0.0.32",
-    "@types/mocha": "^2.2.31",
+    "@types/mocha": "^2.2.32",
     "@types/node": "^6.0.45",
     "@types/sinon": "^1.16.29",
     "@types/sinon-chai": "^2.7.26",
@@ -57,7 +58,7 @@
     "sinon-chai": "^2.8.0",
     "stryker-api": "^0.4.1",
     "tslint": "^4.0.2",
-    "typescript": "^2.0.2"
+    "typescript": "^2.0.3"
   },
   "dependencies": {
     "lodash": "^4.13.1",

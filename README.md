@@ -35,4 +35,4 @@ The easiest way to achieve this, is *not have a `plugins` section* in your confi
 
 ### Use the test runner
 
-In order to use karma as the test runner, you simply specify it in your config file: `testRunner: 'jest'`.
+In order to use Jest as the test runner, you simply specify it in your config file: `testRunner: 'jest'`.

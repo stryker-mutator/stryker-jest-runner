@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "A plugin to use the jest test runner and framework in Stryker, the JavaScript mutation testing framework",
   "main": "src/index.js",
+  "engines" : {
+    "node" : ">=6.0.0"
+  },
   "scripts": {
     "test": "grunt test"
   },

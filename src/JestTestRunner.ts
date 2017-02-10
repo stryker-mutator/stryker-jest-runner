@@ -41,6 +41,7 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
 
     this.options = _.assign(DEFAULT_OPTIONS, {
       rootDir: process.cwd(),
+      roots: process.cwd(),
       testPathDirs: [process.cwd()]
     });
     log.debug(`Using options ${JSON.stringify(this.options)}`);

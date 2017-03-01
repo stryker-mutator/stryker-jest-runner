@@ -23,7 +23,7 @@ const DEFAULT_OPTIONS: Object = {
   setupFiles: [],
   snapshotSerializers: [],
   testEnvironment: 'jest-environment-jsdom',
-  testRegex: '.*Spec\\.js$',
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$',
   testRunner: 'jest-jasmine2',
   verbose: true
 };
@@ -41,7 +41,6 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
 
     this.options = _.assign(DEFAULT_OPTIONS, {
       rootDir: process.cwd(),
-      roots: process.cwd(),
       testPathDirs: [process.cwd()]
     });
     log.debug(`Using options ${JSON.stringify(this.options)}`);

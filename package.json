@@ -1,0 +1,60 @@
+{
+  "private": true,
+  "name": "stryker-jest-runner",
+  "version": "0.0.0",
+  "description": "A plugin to use the jest test runner and framework in Stryker, the JavaScript mutation testing framework",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "tsc",
+    "premocha": "npm run build",
+    "lint": "tslint -c tslint.json **/*.ts --exclude \"**/*.d.ts\"",
+    "test": "npm run lint && npm run mocha && npm run stryker",
+    "mocha": "nyc --reporter=html --report-dir=reports/coverage --check-coverage --lines 85 --functions 90 --branches 65 mocha \"test/unit/**/**/*.js\"",
+    "stryker": "stryker run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Archcry/stryker-jest-runner.git"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "keywords": [
+    "stryker",
+    "stryker-plugin",
+    "jest",
+    "stryker-test-runner"
+  ],
+  "author": "Sander koenders <sanderkoenders@gmail.com>",
+  "contributors": [
+    "Simon de Lang <simondelang@gmail.com>",
+    "Nico Jansen <jansennico@gmail.com>"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Archcry/stryker-jest-runner/issues"
+  },
+  "homepage": "https://github.com/Archcry/stryker-jest-runner#readme",
+  "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.43",
+    "@types/node": "^8.5.1",
+    "@types/sinon": "^2.3.6",
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3",
+    "nyc": "^11.2.1",
+    "sinon": "^4.0.1",
+    "stryker": "^0.15.5",
+    "stryker-api": "^0.11.0",
+    "stryker-html-reporter": "^0.11.3",
+    "stryker-mocha-framework": "^0.7.1",
+    "stryker-mocha-runner": "^0.10.1",
+    "stryker-typescript": "^0.8.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.5.0"
+  },
+  "peerDependencies": {
+    "stryker-api": "^0.11.0"
+  },
+  "dependencies": {}
+}

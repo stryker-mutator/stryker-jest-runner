@@ -6,13 +6,13 @@ module.exports = function(config) {
       { pattern: 'src/**/*.ts', included: false, mutated: true },
       '!./src/index.ts'
     ],
-    testRunner: "mocha",
-    testFramework: "mocha",
-    mutator: "typescript",
-    transpilers: ["typescript"],
-    reporter: ["clear-text", "progress", "html"],
-    tsconfigFile: "tsconfig.json",
-    coverageAnalysis: "off",
-    logLevel: "info"
+    testRunner: 'mocha',
+    testFramework: 'mocha',
+    mutator: 'typescript',
+    transpilers: ['typescript'],
+    reporter: ['clear-text', 'progress', 'html'],
+    tsconfigFile: 'tsconfig.json',
+    coverageAnalysis: 'off',
+    logLevel: 'info'
   });
 };

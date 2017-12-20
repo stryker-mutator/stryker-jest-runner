@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import * as path from 'path';
 import * as fs from 'fs';
 
-describe('DefaultConfigEditor', () => {
+describe('DefaultConfigLoader', () => {
   let defaultConfigLoader: DefaultConfigLoader;
   let projectRoot: string = '/path/to/project/root';
   let fsStub: FsStub = {};

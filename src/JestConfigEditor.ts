@@ -1,6 +1,6 @@
 import { Config, ConfigEditor } from 'stryker-api/config';
-import ReactConfigEditor from './configEditor/ReactConfigEditor';
-import DefaultConfigEditor from './configEditor/DefaultConfigEditor';
+import DefaultConfigLoader from './configLoaders/DefaultConfigLoader';
+import ConfigLoader from './configLoaders/ConfigLoader';
 import * as fs from 'fs';
 
 export default class JestConfigEditor implements ConfigEditor {
@@ -11,21 +11,21 @@ export default class JestConfigEditor implements ConfigEditor {
       project = config.jest.project;
     }
 
-    this.getConfigEditor(project).edit(config);
+    config.jest = config.jest || {};
+    config.jest.config = this.getConfigLoader(project).loadConfig();
   }
 
-  private getConfigEditor(project: string): ConfigEditor {
-    let configEditor: ConfigEditor;
+  private getConfigLoader(project: string): ConfigLoader {
+    let configLoader: ConfigLoader;
 
     switch (project.toLowerCase()) {
-      case 'react':
-        configEditor = new ReactConfigEditor;
+      case 'default':
+        configLoader = new DefaultConfigLoader(process.cwd(), fs);
       break;
       default:
-        configEditor = new DefaultConfigEditor(process.cwd(), fs);
-      break;
+        throw new Error(`No configLoader available for ${project}`);
     }
 
-    return configEditor;
+    return configLoader;
   }
 }

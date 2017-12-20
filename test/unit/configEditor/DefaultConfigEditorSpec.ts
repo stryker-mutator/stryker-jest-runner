@@ -1,34 +1,32 @@
-import DefaultConfigEditor from '../../../src/configEditor/DefaultConfigEditor';
+import DefaultConfigLoader from '../../../src/configLoaders/DefaultConfigLoader';
 import * as sinon from 'sinon';
 import { assert } from 'chai';
-import { Config } from 'stryker-api/config';
 import * as path from 'path';
-
-const fakeFs: any = {
-  readFileSync: sinon.spy()
-}
+import * as fs from 'fs';
 
 describe('DefaultConfigEditor', () => {
-  let defaultConfigEditor: DefaultConfigEditor;
+  let defaultConfigLoader: DefaultConfigLoader;
   let projectRoot: string = '/path/to/project/root';
+  let fsStub: FsStub = {};
+  let sandbox: sinon.SinonSandbox;
 
   beforeEach(() => {
-    defaultConfigEditor = new DefaultConfigEditor(projectRoot, fakeFs);
+    sandbox = sinon.sandbox.create();
+
+    fsStub.readFileSync = sandbox.stub(fs, 'readFileSync').returns('{}');
+
+    defaultConfigLoader = new DefaultConfigLoader(projectRoot, fs);
   });
 
-  it('should call the project package.json in the projectRoot wen no location is provided', () => {
-    defaultConfigEditor.edit(new Config);
+  afterEach(() => sandbox.restore());
 
-    assert(fakeFs.readFileSync.calledWith(path.join(projectRoot, 'package.json'), 'utf8'));
-  });
+  it('should load the jest configuration from the package.json in the project', () => {
+    defaultConfigLoader.loadConfig();
 
-  it('should load the package.json from the relative path from the projectRoot provided by the user', () => {
-    const relativePath = './config/package.json';
-    const config = new Config;
-    config.set({ jest: { packageJsonLocation: relativePath } });
-    
-    defaultConfigEditor.edit(config);
-
-    assert(fakeFs.readFileSync.calledWith(path.join(projectRoot, relativePath), 'utf8'));
+    assert(fsStub.readFileSync.calledWith(path.join(projectRoot, 'package.json'), 'utf8'), 'readFileSync not called');
   });
 });
+
+interface FsStub {
+  [key: string]: sinon.SinonStub;
+}

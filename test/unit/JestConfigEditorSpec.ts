@@ -1,49 +1,43 @@
-import DefaultConfigEditor, * as defaultConfigEditor from '../../src/configEditor/DefaultConfigEditor';
-import ReactConfigEditor, * as reactConfigEditor from '../../src/configEditor/ReactConfigEditor';
+import DefaultConfigLoader, * as defaultConfigLoader from '../../src/configLoaders/DefaultConfigLoader';
 import JestConfigEditor from '../../src/JestConfigEditor';
 import { Config } from 'stryker-api/config';
 import * as sinon from 'sinon';
-import { assert } from 'chai';
+import { assert, expect } from 'chai';
 
 describe('JestConfigEditor', () => {
   let jestConfigEditor: JestConfigEditor;
   let sandbox: sinon.SinonSandbox;
 
-  let defaultConfigEditorStub: ConfigEditorStub;
-  let reactConfigEditorStub: ConfigEditorStub;
+  let defaultConfigLoaderStub: ConfigLoaderStub;
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
 
-    defaultConfigEditorStub = sinon.createStubInstance(DefaultConfigEditor);
-    reactConfigEditorStub = sinon.createStubInstance(ReactConfigEditor);
-
-    sandbox.stub(defaultConfigEditor, 'default').returns(defaultConfigEditorStub);
-    sandbox.stub(reactConfigEditor, 'default').returns(reactConfigEditorStub);
+    defaultConfigLoaderStub = sinon.createStubInstance(DefaultConfigLoader);
+    sandbox.stub(defaultConfigLoader, 'default').returns(defaultConfigLoaderStub);
 
     jestConfigEditor = new JestConfigEditor;
   });
 
   afterEach(() => sandbox.restore());
 
-  it('should call the defaultConfigEditor edit method when no project is defined', () => {
+  it('should call the defaultConfigLoader edit method when no project is defined', () => {
     const config = new Config;
 
     jestConfigEditor.edit(config);
 
-    assert(defaultConfigEditorStub.edit.calledWith(config), 'DefaultConfigEditor edit not called');
+    assert(defaultConfigLoaderStub.loadConfig.calledOnce, 'DefaultConfigLoader loadConfig not called');
   });
 
-  it('should call the reactConfigEditor edit method when react is defined as project', () => {
+  it('should return an error when an invalid project is defined', () => {
     const config = new Config;
-    config.set({ jest: { project: 'React' } })
+    const project = 'invalidProject';
+    config.set({ jest: { project } });
 
-    jestConfigEditor.edit(config);
-
-    assert(reactConfigEditorStub.edit.calledWith(config), 'ReactConfigEditor edit not called');
+    expect(() => jestConfigEditor.edit(config)).to.throw(Error, `No configLoader available for ${ project }`)
   });
 });
 
-interface ConfigEditorStub {
-  edit: sinon.SinonStub;
+interface ConfigLoaderStub {
+  loadConfig: sinon.SinonStub;
 }

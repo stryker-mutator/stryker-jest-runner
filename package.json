@@ -39,11 +39,13 @@
     "@types/chai": "^4.0.4",
     "@types/mocha": "^2.2.43",
     "@types/node": "^8.5.1",
+    "@types/semver": "^5.4.0",
     "@types/sinon": "^2.3.6",
     "chai": "^4.1.2",
     "jest": "^22.0.3",
     "mocha": "^3.5.3",
     "nyc": "^11.2.1",
+    "react-scripts": "^1.0.17",
     "sinon": "^4.0.1",
     "stryker": "^0.15.5",
     "stryker-api": "^0.11.0",
@@ -55,7 +57,11 @@
     "typescript": "^2.5.0"
   },
   "peerDependencies": {
-    "stryker-api": "^0.11.0"
+    "stryker-api": "^0.11.0",
+    "react-scripts": "^1.0.17",
+    "jest": "^20.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "semver": "^5.4.1"
+  }
 }

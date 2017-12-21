@@ -43,6 +43,6 @@ describe('ReactConfigLoader', () => {
   it('should generate a configuration', () => {
     const config = JSON.parse(reactConfigLoader.loadConfig());
     
-    expect(config).to.deep.equal({ relativePath: 'node_modules/react-scripts/test', projectRoot: '/path/to/project', eject: false });
+    expect(config).to.deep.equal(JSON.stringify({ relativePath: 'node_modules/react-scripts/test', projectRoot: '/path/to/project', eject: false }));
   });
 });

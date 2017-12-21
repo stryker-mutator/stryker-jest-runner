@@ -27,14 +27,14 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
     return {
       tests: this.processTestResults(result.testResults),
       status: (result.success) ? RunStatus.Complete : RunStatus.Error
-    }
+    };
   }
 
   private processTestResults(fileResults: Array<any>): Array<TestResult> {
     const testResults: Array<TestResult> = [];
 
-    for(let fileResult of fileResults) {
-      for(let testResult of fileResult.testResults) {
+    for (let fileResult of fileResults) {
+      for (let testResult of fileResult.testResults) {
         testResults.push({
           name: testResult.fullName,
           status: (testResult.status === 'passed') ? TestStatus.Success : TestStatus.Failed,

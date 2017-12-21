@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "example-project",
+  "version": "0.0.0",
+  "description": "A testResource for jest-test-runner",
+  "jest": {
+    "rootDir": "/path/to/testResource/exampleProject",
+    "exampleProperty": "exampleValue"
+  }
+}

@@ -22,7 +22,7 @@ export default class JestTestAdapterFactory {
   }
 
   private static getJestType(loader?: NodeRequire): 'promise' | 'callback' | 'invalid' {
-    loader = loader || require;
+    loader = loader || /* istanbul ignore next */ require;
 
     const jestVersion = loader('jest/package.json').version;
 

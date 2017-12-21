@@ -20,14 +20,14 @@ describe('JestTestRunner', () => {
     runJestStub.returns(Promise.resolve(fakeResults.createSuccessResult()));
 
     strykerOptions = new Config;
-    strykerOptions.set({ jest: { config: '{ "property": "value" }' }})
+    strykerOptions.set({ jest: { config: '{ "property": "value" }' } })
 
     jestTestRunner = new JestTestRunner({
       files: [],
       port: 0,
       strykerOptions
     });
-    
+
     jestTestAdapterFactoryStub = sandbox.stub(JestTestAdapterFactory, 'getJestTestAdapter');
     jestTestAdapterFactoryStub.returns({
       run: runJestStub
@@ -48,14 +48,47 @@ describe('JestTestRunner', () => {
     assert(runJestStub.called);
   });
 
-  it('should call the return a correct runResult', async () => {
+  it('should call the jestTestRunner run method and return a correct runResult', async () => {
     const result = await jestTestRunner.run();
 
-    expect(result).to.deep.equal({ tests: 
-      [ { name: 'App renders without crashing',
+    expect(result).to.deep.equal({
+      tests: [
+        {
+          name: 'App renders without crashing',
           status: 0,
           timeSpentMs: 23,
-          failureMessages: [] } ],
-     status: 0 });
+          failureMessages: []
+        }
+      ],
+      status: 0
+    });
+  });
+
+  it('should call the jestTestRunner run method and return a negative runResult', async () => {
+    runJestStub.returns(Promise.resolve(fakeResults.createFailResult()));
+
+    const result = await jestTestRunner.run();
+
+    expect(result).to.deep.equal({
+      tests: [{
+        name: 'App render renders without crashing',
+        status: 1,
+        timeSpentMs: 2,
+        failureMessages: [
+          'Fail message 1',
+          'Fail message 2'
+        ]
+      },
+      {
+        name: 'App render renders without crashing',
+        status: 1,
+        timeSpentMs: 0,
+        failureMessages: [
+          'Fail message 3',
+          'Fail message 4'
+        ]
+      }],
+      status: 1
+    })
   });
 });

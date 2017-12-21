@@ -2,7 +2,7 @@ import JestTestAdapterFactory from '../../../src/jestTestAdapters/JestTestAdapte
 import JestPromiseTestAdapter, * as jestPromiseTestAdapter from '../../../src/jestTestAdapters/JestPromiseTestAdapter';
 import JestCallbackTestAdapter, * as jestCallbackTestAdapter from '../../../src/jestTestAdapters/JestCallbackTestAdapter';
 import * as sinon from 'sinon';
-import { expect } from 'chai';
+import { expect, assert } from 'chai';
 
 const loader: any = {
   require: () => {}
@@ -42,6 +42,14 @@ describe("JestTestAdapterFactory", () => {
     const testAdapter = JestTestAdapterFactory.getJestTestAdapter(loader.require);
 
     expect(testAdapter).to.equal(jestCallbackTestAdapterStub);
+  });
+
+  it('should load the jest package.json with require', () => {
+    requireStub.returns({ version: '20.0.0' });
+
+    JestTestAdapterFactory.getJestTestAdapter(loader.require);
+
+    assert(requireStub.calledWith('jest/package.json'), 'require not called with "jest/package.json"');
   });
 
   it('should throw an error when the jest version is lower than 20.0.0', () => {

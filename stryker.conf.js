@@ -4,7 +4,10 @@ module.exports = function(config) {
       '!src/**/*.ts',
       '!**/*.d.ts',
       { pattern: 'src/**/*.ts', included: false, mutated: true },
-      '!./src/index.ts'
+      '!./src/index.ts',
+
+      // Stryker crashes on integration tests, don't run them
+      '!./test/integration/**/*'
     ],
     testRunner: 'mocha',
     testFramework: 'mocha',

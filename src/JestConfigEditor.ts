@@ -2,6 +2,7 @@ import { Config, ConfigEditor } from 'stryker-api/config';
 import DefaultConfigLoader from './configLoaders/DefaultConfigLoader';
 import ConfigLoader from './configLoaders/ConfigLoader';
 import * as fs from 'fs';
+import ReactConfigLoader from './configLoaders/ReactConfigLoader';
 
 export default class JestConfigEditor implements ConfigEditor {
   public edit(config: Config): void {
@@ -21,6 +22,9 @@ export default class JestConfigEditor implements ConfigEditor {
     switch (project.toLowerCase()) {
       case 'default':
         configLoader = new DefaultConfigLoader(process.cwd(), fs);
+      break;
+      case 'react':
+        configLoader = new ReactConfigLoader(process.cwd());
       break;
       default:
         throw new Error(`No configLoader available for ${project}`);

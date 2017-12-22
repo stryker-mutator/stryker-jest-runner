@@ -16,6 +16,8 @@ describe("StrykerJestRunner", () => {
 
   let sandbox: sinon.SinonSandbox;
 
+  process.env.BABEL_ENV = 'test';
+
   beforeEach(() => {
     sandbox = sinon.createSandbox();
 

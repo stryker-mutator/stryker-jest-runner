@@ -17,7 +17,9 @@ describe('JestTestRunner', () => {
     sandbox = sinon.createSandbox();
 
     runJestStub = sinon.stub();
-    runJestStub.returns(Promise.resolve(fakeResults.createSuccessResult()));
+    runJestStub.returns(Promise.resolve({
+      results: fakeResults.createSuccessResult()
+    }));
 
     strykerOptions = new Config;
     strykerOptions.set({ jest: { config: '{ "property": "value" }' } })
@@ -65,7 +67,7 @@ describe('JestTestRunner', () => {
   });
 
   it('should call the jestTestRunner run method and return a negative runResult', async () => {
-    runJestStub.returns(Promise.resolve(fakeResults.createFailResult()));
+    runJestStub.returns(Promise.resolve({ results: fakeResults.createFailResult() }));
 
     const result = await jestTestRunner.run();
 

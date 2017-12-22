@@ -14,10 +14,14 @@ export default class ReactConfigLoader implements ConfigLoader {
   public loadConfig(): string {
     const reactScriptsLocation = path.join(this.loader.resolve('react-scripts/package.json'), '..');
 
-    return JSON.stringify(this.createJestConfig(reactScriptsLocation));
+    const jestConfiguration = this.createJestConfig(reactScriptsLocation);
+    
+    jestConfiguration.testEnvironment = 'jsdom';
+
+    return JSON.stringify(jestConfiguration);
   }
 
-  private createJestConfig(reactScriptsLocation: string) {
+  private createJestConfig(reactScriptsLocation: string): any {
     return createReactJestConfig(
       (relativePath: string): string => path.join(reactScriptsLocation, relativePath),
       this.projectRoot,

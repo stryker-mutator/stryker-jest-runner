@@ -2,7 +2,6 @@ import JestConfigEditor from '../../src/JestConfigEditor';
 import { Config } from 'stryker-api/config';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-// import * as getProjectRoot from '../../src/utils/getProjectRoot';
 import * as path from 'path';
 
 describe('Integration JestConfigEditor', () => {
@@ -41,7 +40,7 @@ describe('Integration JestConfigEditor', () => {
           "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
           "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
         ],
-        "testEnvironment": "node",
+        "testEnvironment": "jsdom",
         "testURL": "http://localhost",
         "transform": {
           "^.+\\\\.(js|jsx|mjs)$":"${ projectRoot }/node_modules/react-scripts/config/jest/babelTransform.js",
@@ -63,7 +62,7 @@ describe('Integration JestConfigEditor', () => {
           "jsx",
           "node"
         ],
-        "rootDir":"${ projectRoot }"
+        "rootDir": "${ projectRoot }"
       }
     `;
 

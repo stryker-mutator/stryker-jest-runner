@@ -6,14 +6,14 @@ export default class JestPromiseTestAdapter implements JestTestAdapter {
   public constructor(loader?: NodeRequire) {
     loader = loader || /* istanbul ignore next */ require;
 
-    this.testRunner = loader('jest').runCLI;
+    this.testRunner = loader('jest');
   }
 
-  public run(config: any, projectRoot: string): Promise<any> {
-    config.reporters = [];
+  public run(jestConfig: any, projectRoot: string): Promise<any> {
+    jestConfig.reporters = [];
 
-    return this.testRunner({
-      config: JSON.stringify(config),
+    return this.testRunner.runCLI({
+      config: JSON.stringify(jestConfig),
       runInBand: true,
       silent: true
     }, [projectRoot]);

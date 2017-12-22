@@ -18,9 +18,9 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
   public async run(): Promise<RunResult> {
     const jestTestRunner = JestTestAdapterFactory.getJestTestAdapter();
 
-    const runResult = await jestTestRunner.run(this.jestConfig, process.cwd());
+    const { results } = await jestTestRunner.run(this.jestConfig, process.cwd());
 
-    return this.processRunResults(runResult);
+    return this.processRunResults(results);
   }
 
   private processRunResults(result: any): RunResult {

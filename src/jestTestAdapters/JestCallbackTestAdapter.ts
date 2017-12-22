@@ -9,12 +9,12 @@ export default class JestCallbackTestAdapter implements JestTestAdapter {
     this.testRunner = loader('jest');
   }
 
-  public run(config: any, projectRoot: string): Promise<any> {
-    config.reporters = [];
+  public run(jestConfig: any, projectRoot: string): Promise<any> {
+    jestConfig.reporters = [];
 
     return new Promise((resolve) => {
-      this.testRunner.runCLI({ 
-        config: JSON.stringify(config), 
+      this.testRunner.runCLI({
+        config: JSON.stringify(jestConfig),
         runInBand: true,
         silent: true
       }, [projectRoot], resolve);

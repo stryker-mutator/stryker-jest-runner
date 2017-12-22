@@ -20,7 +20,7 @@ describe('ReactConfigLoader', () => {
     sandbox = sinon.sandbox.create();
 
     createReactJestConfigStub = sandbox.stub(createReactJestConfig, 'default');
-    createReactJestConfigStub.callsFake((resolve: any, projectRoot: string, eject: boolean) => JSON.stringify({
+    createReactJestConfigStub.callsFake((resolve: any, projectRoot: string, eject: boolean) => ({
       relativePath: resolve('test'),
       projectRoot,
       eject
@@ -43,6 +43,6 @@ describe('ReactConfigLoader', () => {
   it('should generate a configuration', () => {
     const config = JSON.parse(reactConfigLoader.loadConfig());
     
-    expect(config).to.deep.equal(JSON.stringify({ relativePath: 'node_modules/react-scripts/test', projectRoot: '/path/to/project', eject: false }));
+    expect(config).to.deep.equal({ relativePath: 'node_modules/react-scripts/test', projectRoot: '/path/to/project', eject: false, testEnvironment: 'jsdom' });
   });
 });

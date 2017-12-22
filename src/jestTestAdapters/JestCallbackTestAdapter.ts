@@ -17,7 +17,7 @@ export default class JestCallbackTestAdapter implements JestTestAdapter {
         config: JSON.stringify(jestConfig),
         runInBand: true,
         silent: true
-      }, [projectRoot], resolve);
+      }, [projectRoot], (results: any) => resolve({ results }));
     });
   }
 }

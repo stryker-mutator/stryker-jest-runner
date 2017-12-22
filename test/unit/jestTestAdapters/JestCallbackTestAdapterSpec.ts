@@ -20,10 +20,7 @@ describe("JestCallbackTestAdapter", () => {
     sandbox = sinon.createSandbox();
 
     runCLIStub = sinon.stub();
-    runCLIStub.callsFake((config: Object, projectRootArray: Array<string>, callback: Function) => callback({
-      result: 'testResult',
-      config: config
-    }));
+    runCLIStub.callsFake((config: Object, projectRootArray: Array<string>, callback: Function) => callback('testResult'));
 
     requireStub = sandbox.stub(loader, 'require');
     requireStub.returns({
@@ -59,12 +56,7 @@ describe("JestCallbackTestAdapter", () => {
     const result = await jestCallbackTestAdapter.run(jestConfig, projectRoot);
 
     expect(result).to.deep.equal({
-      result: 'testResult',
-      config: {
-        config: JSON.stringify({ rootDir: projectRoot, reporters: [] }),
-        runInBand: true,
-        silent: true
-      }
+      results: 'testResult'
     });
   })
 });

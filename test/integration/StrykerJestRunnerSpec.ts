@@ -51,5 +51,5 @@ describe("StrykerJestRunner", () => {
     expect(result.tests[0].timeSpentMs).to.be.above(0);
     expect(result.tests[0].failureMessages).to.be.an('array').that.is.empty;
     expect(result.status).to.equal(RunStatus.Complete);
-  });
+  }).timeout(10000);
 });

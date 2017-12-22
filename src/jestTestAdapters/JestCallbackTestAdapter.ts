@@ -4,7 +4,7 @@ export default class JestCallbackTestAdapter implements JestTestAdapter {
   private testRunner: any;
   
   public constructor(loader?: NodeRequire) {
-    loader = loader || require;
+    loader = loader || /* istanbul ignore next */ require;
 
     this.testRunner = loader('jest');
   }

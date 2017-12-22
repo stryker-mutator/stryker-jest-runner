@@ -1,12 +1,10 @@
 import JestConfigEditor from '../../src/JestConfigEditor';
 import { Config } from 'stryker-api/config';
-import { RunnerOptions } from 'stryker-api/test_runner'
+import { RunnerOptions, RunStatus, TestStatus } from 'stryker-api/test_runner'
 import * as sinon from 'sinon';
 import { expect } from 'chai';
 import JestTestRunner from '../../src/JestTestRunner';
 import * as path from 'path';
-
-process.env.NODE_ENV = 'test';
 
 describe("StrykerJestRunner", () => {
   const jestTestRunnerRoot = process.cwd();
@@ -44,15 +42,12 @@ describe("StrykerJestRunner", () => {
 
     const result = await jestTestRunner.run();
 
-    expect(result).to.deep.equal({
-      tests:
-        [{
-          name: 'renders without crashing',
-          status: 0,
-          timeSpentMs: 13,
-          failureMessages: []
-        }],
-      status: 0
-    });
+    expect(result).to.have.property('tests');
+    expect(result.tests).to.be.an('array').that.is.not.empty;
+    expect(result.tests[0].name).to.equal('renders without crashing');
+    expect(result.tests[0].status).to.equal(TestStatus.Success);
+    expect(result.tests[0].timeSpentMs).to.be.above(0);
+    expect(result.tests[0].failureMessages).to.be.an('array').that.is.empty;
+    expect(result.status).to.equal(RunStatus.Complete);
   });
 });

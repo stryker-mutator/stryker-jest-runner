@@ -1,17 +1,70 @@
 import JestCallbackTestAdapter from "../../../src/jestTestAdapters/JestCallbackTestAdapter";
-import { expect } from 'chai';
+import * as sinon from 'sinon';
+import { expect, assert } from 'chai';
+
+const loader: any = {
+  require: () => {}
+};
 
 describe("JestCallbackTestAdapter", () => {
+  let sandbox: sinon.SinonSandbox;
+  let runCLIStub: sinon.SinonStub;
+  let requireStub: sinon.SinonStub;
+
   let jestCallbackTestAdapter: JestCallbackTestAdapter;
 
   let projectRoot = '/path/to/project';
-  let jestConfig = { rootDir: projectRoot };
+  let jestConfig: any = { rootDir: projectRoot };
 
   beforeEach(() => {
-    jestCallbackTestAdapter = new JestCallbackTestAdapter;
+    sandbox = sinon.createSandbox();
+
+    runCLIStub = sinon.stub();
+    runCLIStub.callsFake((config: Object, projectRootArray: Array<string>, callback: Function) => callback({
+      result: 'testResult',
+      config: config
+    }));
+
+    requireStub = sandbox.stub(loader, 'require');
+    requireStub.returns({
+      runCLI: runCLIStub
+    });
+
+    jestCallbackTestAdapter = new JestCallbackTestAdapter(loader.require);
   });
 
-  it('should throw a not implemented error', () => {
-    expect(() => jestCallbackTestAdapter.run(jestConfig, projectRoot)).to.throw(Error, 'Not yet implemented');
+  afterEach(() => sandbox.restore());
+
+  it('should require jest when the constructor is called', () => {
+    assert(requireStub.calledWith('jest'), 'require not called with jest');
+  })
+
+  it('should set reporters to an empty array', async () => {
+    await jestCallbackTestAdapter.run(jestConfig, projectRoot);
+
+    expect(jestConfig.reporters).to.be.an('array').that.is.empty;
   });
+
+  it('should call the runCLI method with the correct projectRoot', async () => {
+    await jestCallbackTestAdapter.run(jestConfig, projectRoot);
+
+    assert(runCLIStub.calledWith({
+      config: JSON.stringify({ rootDir: projectRoot, reporters: [] }),
+      runInBand: true,
+      silent: true
+    }, [projectRoot]));
+  });
+
+  it('should call the runCLI method and return the test result', async () => {
+    const result = await jestCallbackTestAdapter.run(jestConfig, projectRoot);
+
+    expect(result).to.deep.equal({
+      result: 'testResult',
+      config: {
+        config: JSON.stringify({ rootDir: projectRoot, reporters: [] }),
+        runInBand: true,
+        silent: true
+      }
+    });
+  })
 });

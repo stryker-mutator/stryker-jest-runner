@@ -37,17 +37,25 @@ In order to use the `stryker-jest-runner` it must be loaded in the Stryker mutat
 In order to use Jest as the test runner, you simply specify it in your stryker config file:
 
 ```javascript
+module.exports = function (config) {
+  config.set({
     ...
     testRunner: 'jest'
     ...
+  }
+}
 ```
 
 Note that coverageAnalysis is not yet supported, so you must explicitly set it to off in your Stryker configration. Pull requests are - obviously - welcome.
 
 ```javascript
+module.exports = function (config) {
+  config.set({
     ...
     coverageAnalysis: 'off'
     ...
+  }
+}
 ```
 
 ## Contributing

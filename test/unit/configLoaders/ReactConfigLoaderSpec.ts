@@ -5,7 +5,7 @@ import ReactConfigLoader from '../../../src/configLoaders/ReactConfigLoader';
 import * as createReactJestConfig from '../../../src/utils/createReactJestConfig';
 
 const fakeRequire: any = {
-  resolve: () => {}
+  resolve: () => { }
 };
 
 describe('ReactConfigLoader', () => {
@@ -43,7 +43,12 @@ describe('ReactConfigLoader', () => {
 
   it('should generate a configuration', () => {
     const config = JSON.parse(reactConfigLoader.loadConfig());
-    
-    expect(config).to.deep.equal({ relativePath: path.join('node_modules', 'react-scripts', 'test'), projectRoot: '/path/to/project', eject: false, testEnvironment: 'jsdom' });
+
+    expect(config).to.deep.equal({
+      relativePath: path.join('node_modules', 'react-scripts', 'test'),
+      projectRoot: '/path/to/project',
+      eject: false,
+      testEnvironment: 'jsdom'
+    });
   });
 });

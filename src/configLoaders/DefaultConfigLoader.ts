@@ -1,7 +1,7 @@
-import Configloader from './ConfigLoader';
+import ConfigLoader from './ConfigLoader';
 import * as path from 'path';
 
-export default class DefaultConfigEditor implements Configloader {
+export default class DefaultConfigEditor implements ConfigLoader {
   private fs: any;
   private projectRoot: string;
 

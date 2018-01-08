@@ -27,8 +27,11 @@
   ],
   "author": "Sander koenders <sanderkoenders@gmail.com>",
   "contributors": [
+    "Maarten Mulders <mthmulders@users.noreply.github.com>",
+    "mshogren <m_shogren@yahoo.com>",
+    "Nico Jansen <jansennico@gmail.com>",
     "Simon de Lang <simondelang@gmail.com>",
-    "Nico Jansen <jansennico@gmail.com>"
+    "Philipp Weissenbacher <philipp.weissenbacher@gmail.com>"
   ],
   "license": "Apache-2.0",
   "bugs": {
@@ -61,7 +64,6 @@
   },
   "peerDependencies": {
     "stryker-api": "^0.11.0",
-    "react-scripts": "^1.0.17",
     "jest": "^20.0.0"
   },
   "dependencies": {

@@ -8,7 +8,7 @@ const loader: any = {
   require: () => {}
 };
 
-describe("JestTestAdapterFactory", () => {
+describe('JestTestAdapterFactory', () => {
   let sandbox: sinon.SinonSandbox;
   let jestPromiseTestAdapterStub: TestAdapterStub;
   let jestCallbackTestAdapterStub: TestAdapterStub;

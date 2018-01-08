@@ -1,12 +1,12 @@
-import JestPromiseTestAdapter from "../../../src/jestTestAdapters/JestPromiseTestAdapter";
+import JestPromiseTestAdapter from '../../../src/jestTestAdapters/JestPromiseTestAdapter';
 import * as sinon from 'sinon';
 import { expect, assert } from 'chai';
 
 const loader: any = {
-  require: () => {}
+  require: () => { }
 };
 
-describe("JestPromiseTestAdapter", () => {
+describe('JestPromiseTestAdapter', () => {
   let sandbox: sinon.SinonSandbox;
   let runCLIStub: sinon.SinonStub;
   let requireStub: sinon.SinonStub;
@@ -37,7 +37,7 @@ describe("JestPromiseTestAdapter", () => {
 
   it('should require jest when the constructor is called', () => {
     assert(requireStub.calledWith('jest'), 'require not called with jest');
-  })
+  });
 
   it('should set reporters to an empty array', async () => {
     await jestPromiseTestAdapter.run(jestConfig, projectRoot);
@@ -66,5 +66,5 @@ describe("JestPromiseTestAdapter", () => {
         silent: true
       }
     });
-  })
+  });
 });

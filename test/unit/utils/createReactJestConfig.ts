@@ -14,7 +14,7 @@ describe('createReactJestConfig', () => {
 
     loaderStub = sandbox.stub(loader, 'require');
     loaderStub.returns((resolve: Function, projectRoot: string, ejected: boolean) => {
-      return 'jestConfig'
+      return 'jestConfig';
     });
   });
 

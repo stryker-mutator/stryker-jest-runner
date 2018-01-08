@@ -34,7 +34,7 @@ describe('JestCallbackTestAdapter', () => {
 
   it('should require jest when the constructor is called', () => {
     assert(requireStub.calledWith('jest'), 'require not called with jest');
-  })
+  });
 
   it('should set reporters to an empty array', async () => {
     await jestCallbackTestAdapter.run(jestConfig, projectRoot);
@@ -58,5 +58,5 @@ describe('JestCallbackTestAdapter', () => {
     expect(result).to.deep.equal({
       results: 'testResult'
     });
-  })
+  });
 });

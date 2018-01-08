@@ -1,7 +1,8 @@
-import ReactConfigLoader from '../../../src/configLoaders/ReactConfigLoader';
-import * as createReactJestConfig from '../../../src/utils/createReactJestConfig';
+import * as path from 'path';
 import * as sinon from 'sinon';
 import { assert, expect } from 'chai';
+import ReactConfigLoader from '../../../src/configLoaders/ReactConfigLoader';
+import * as createReactJestConfig from '../../../src/utils/createReactJestConfig';
 
 const fakeRequire: any = {
   resolve: () => {}
@@ -43,6 +44,6 @@ describe('ReactConfigLoader', () => {
   it('should generate a configuration', () => {
     const config = JSON.parse(reactConfigLoader.loadConfig());
     
-    expect(config).to.deep.equal({ relativePath: 'node_modules/react-scripts/test', projectRoot: '/path/to/project', eject: false, testEnvironment: 'jsdom' });
+    expect(config).to.deep.equal({ relativePath: path.join('node_modules', 'react-scripts', 'test'), projectRoot: '/path/to/project', eject: false, testEnvironment: 'jsdom' });
   });
 });

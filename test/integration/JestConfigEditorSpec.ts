@@ -30,44 +30,42 @@ describe('Integration JestConfigEditor', () => {
 
     jestConfigEditor.edit(config);
 
-    const expectedResult = `
-      {
-        "collectCoverageFrom": [
-          "src/**/*.{js,jsx,mjs}"
-        ],
-        "setupFiles": ["${ projectRoot }/node_modules/react-scripts/config/polyfills.js"],
-        "testMatch": [
-          "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
-          "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
-        ],
-        "testEnvironment": "jsdom",
-        "testURL": "http://localhost",
-        "transform": {
-          "^.+\\\\.(js|jsx|mjs)$":"${ projectRoot }/node_modules/react-scripts/config/jest/babelTransform.js",
-          "^.+\\\\\.css$":"${ projectRoot }/node_modules/react-scripts/config/jest/cssTransform.js",
-          "^(?!.*\\\\.(js|jsx|mjs|css|json)$)":"${ projectRoot }/node_modules/react-scripts/config/jest/fileTransform.js"
-        },
-        "transformIgnorePatterns": [
-          "[/\\\\\\\\]node_modules[/\\\\\\\\].+\\\\.(js|jsx|mjs)$"
-        ],
-        "moduleNameMapper": {
-          "^react-native$":"react-native-web"
-        },
-        "moduleFileExtensions": [
-          "web.js",
-          "mjs",
-          "js",
-          "json",
-          "web.jsx",
-          "jsx",
-          "node"
-        ],
-        "rootDir": "${ projectRoot }"
-      }
-    `;
+    const expectedResult = {
+      collectCoverageFrom: [
+        'src/**/*.{js,jsx,mjs}'
+      ],
+      setupFiles: [path.join(projectRoot, 'node_modules', 'react-scripts', 'config', 'polyfills.js')],
+      testMatch: [
+        '<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}',
+        '<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}'
+      ],
+      testEnvironment: 'jsdom',
+      testURL: 'http://localhost',
+      transform: {
+        '^.+\\.(js|jsx|mjs)$': path.join(projectRoot, 'node_modules', 'react-scripts', 'config', 'jest', 'babelTransform.js'),
+        '^.+\\\.css$': path.join(projectRoot, 'node_modules', 'react-scripts', 'config', 'jest', 'cssTransform.js'),
+        '^(?!.*\\.(js|jsx|mjs|css|json)$)': path.join(projectRoot, 'node_modules', 'react-scripts', 'config', 'jest', 'fileTransform.js')
+      },
+      transformIgnorePatterns: [
+        '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$'
+      ],
+      moduleNameMapper: {
+        '^react-native$': 'react-native-web'
+      },
+      moduleFileExtensions: [
+        'web.js',
+        'mjs',
+        'js',
+        'json',
+        'web.jsx',
+        'jsx',
+        'node'
+      ],
+      rootDir: projectRoot
+    };
 
-    // Replace spaces and newlines in the expectedResult to match the actual result returned
-    expect(config.jest.config).to.equal(expectedResult.replace(/\r?\n|\r/g, '').replace(/\s/g, ''));
+    // Parse the json back to an object in order to match
+    expect(JSON.parse(config.jest.config)).to.deep.equal(expectedResult);
   });
 
   it('should load the jest configuration from the package.json', () => {
@@ -75,12 +73,15 @@ describe('Integration JestConfigEditor', () => {
 
     jestConfigEditor.edit(config);
 
-    expect(config.jest.config).to.equal(`{"rootDir":"/path/to/testResource/exampleProject","exampleProperty":"exampleValue"}`);
+    expect(JSON.parse(config.jest.config)).to.deep.equal({
+      rootDir: '/path/to/testResource/exampleProject',
+      exampleProperty: 'exampleValue'
+    });
   });
 
   it('should return with an error when an invalid project is specified', () => {
     const project = 'invalidProject';
-    config.set({ jest: { project }});
+    config.set({ jest: { project } });
 
     expect(() => jestConfigEditor.edit(config)).to.throw(Error, `No configLoader available for ${project}`);
   });

@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Archcry/stryker-jest-runner.git"
+    "url": "https://github.com/stryker-mutator/stryker-jest-runner.git"
   },
   "engines": {
     "node": ">=4"
@@ -32,9 +32,9 @@
   ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/Archcry/stryker-jest-runner/issues"
+    "url": "https://github.com/stryker-mutator/stryker-jest-runner/issues"
   },
-  "homepage": "https://github.com/Archcry/stryker-jest-runner#readme",
+  "homepage": "https://github.com/stryker-mutator/stryker-jest-runner#readme",
   "devDependencies": {
     "@types/chai": "^4.0.4",
     "@types/mocha": "^2.2.43",

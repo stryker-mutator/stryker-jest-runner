@@ -12,12 +12,16 @@ export default class ReactConfigLoader implements ConfigLoader {
   }
 
   public loadConfig(): string {
+    // Get the location of react script, this is later used to generate the Jest configuration used for React projects.
     const reactScriptsLocation = path.join(this.loader.resolve('react-scripts/package.json'), '..');
 
+    // Create the React configuration for Jest
     const jestConfiguration = this.createJestConfig(reactScriptsLocation);
     
+    // Set test environment to jsdom (otherwise Jest won't run)
     jestConfiguration.testEnvironment = 'jsdom';
 
+    // Return a stringified Jest configuration object.
     return JSON.stringify(jestConfiguration);
   }
 

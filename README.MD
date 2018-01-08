@@ -8,7 +8,9 @@
 ## Installation
 Install stryker-jest-runner locally within your project folder, like so:
 
+```bash
 npm i --save-dev stryker-jest-runner
+```
 
 ## Peer dependencies
 The stryker-jest-runner is a plugin for Stryker to enable Jest as a test runner. As such, you should make sure you have the correct versions of its dependencies installed:
@@ -49,4 +51,4 @@ Note that coverageAnalysis is not yet supported, so you must explicitly set it t
 ```
 
 ## Contributing
-Before you start hacking along, make sure to install a supported version of Jest inside your working copy. The versions supported are listed above. Also make sure to read the Stryker contributing guidelines located in the [Stryker mono repository](https://github.com/stryker-mutator/stryker/blob/master/CONTRIBUTING.md).
+Before you start hacking along, make sure to install a supported version of Jest inside your working copy. The versions supported are listed above. Also make sure to read the Stryker contribution guidelines located in the [Stryker mono repository](https://github.com/stryker-mutator/stryker/blob/master/CONTRIBUTING.md).

@@ -1,12 +1,12 @@
 import JestConfigEditor from '../../src/JestConfigEditor';
 import { Config } from 'stryker-api/config';
-import { RunnerOptions, RunStatus, TestStatus } from 'stryker-api/test_runner'
+import { RunnerOptions, RunStatus, TestStatus } from 'stryker-api/test_runner';
 import * as sinon from 'sinon';
 import { expect } from 'chai';
 import JestTestRunner from '../../src/JestTestRunner';
 import * as path from 'path';
 
-describe("StrykerJestRunner", () => {
+describe('StrykerJestRunner', () => {
   const jestTestRunnerRoot = process.cwd();
 
   let jestConfigEditor: JestConfigEditor;
@@ -30,7 +30,7 @@ describe("StrykerJestRunner", () => {
       files: [],
       port: 0,
       strykerOptions: new Config
-    }
+    };
   });
 
   afterEach(() => sandbox.restore());

@@ -48,7 +48,7 @@ describe('JestConfigEditor', () => {
     const project = 'invalidProject';
     config.set({ jest: { project } });
 
-    expect(() => jestConfigEditor.edit(config)).to.throw(Error, `No configLoader available for ${ project }`)
+    expect(() => jestConfigEditor.edit(config)).to.throw(Error, `No configLoader available for ${ project }`);
   });
 });
 

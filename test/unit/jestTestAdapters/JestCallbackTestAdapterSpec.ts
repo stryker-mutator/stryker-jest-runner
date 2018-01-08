@@ -1,12 +1,12 @@
-import JestCallbackTestAdapter from "../../../src/jestTestAdapters/JestCallbackTestAdapter";
+import JestCallbackTestAdapter from '../../../src/jestTestAdapters/JestCallbackTestAdapter';
 import * as sinon from 'sinon';
 import { expect, assert } from 'chai';
 
 const loader: any = {
-  require: () => {}
+  require: () => { }
 };
 
-describe("JestCallbackTestAdapter", () => {
+describe('JestCallbackTestAdapter', () => {
   let sandbox: sinon.SinonSandbox;
   let runCLIStub: sinon.SinonStub;
   let requireStub: sinon.SinonStub;

@@ -51,7 +51,7 @@ export function createFailResult() {
       }
     ],
     wasInterrupted: false
-  }
+  };
 }
 
 export function createSuccessResult() {
@@ -94,6 +94,5 @@ export function createSuccessResult() {
       }
     ],
     wasInterrupted: false
-  }
-
+  };
 }

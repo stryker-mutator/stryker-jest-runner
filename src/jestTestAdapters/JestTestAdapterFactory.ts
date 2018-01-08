@@ -1,4 +1,4 @@
-import JestTestAdapter from "./JestTestAdapter";
+import JestTestAdapter from './JestTestAdapter';
 import JestPromiseAdapter from './JestPromiseTestAdapter';
 import JestCallbackAdapter from './JestCallbackTestAdapter';
 import * as semver from 'semver';
@@ -7,13 +7,13 @@ export default class JestTestAdapterFactory {
   public static getJestTestAdapter(loader?: NodeRequire): JestTestAdapter {
     let jestTestAdapter: JestTestAdapter;
 
-    switch(this.getJestType(loader)) {
-      case 'promise': 
+    switch (this.getJestType(loader)) {
+      case 'promise':
         jestTestAdapter = new JestPromiseAdapter;
-      break;
+        break;
       case 'callback':
         jestTestAdapter = new JestCallbackAdapter;
-      break;
+        break;
       default:
         throw new Error('You need Jest version >= 20.0.0 to use Stryker');
     }
@@ -26,9 +26,9 @@ export default class JestTestAdapterFactory {
 
     const jestVersion = loader('jest/package.json').version;
 
-    if(semver.satisfies(jestVersion, '<20.0.0')) {
+    if (semver.satisfies(jestVersion, '<20.0.0')) {
       return 'invalid';
-    } else if(semver.satisfies(jestVersion, '>=20.0.0 <21.0.0')) {
+    } else if (semver.satisfies(jestVersion, '>=20.0.0 <21.0.0')) {
       return 'callback';
     } else {
       return 'promise';

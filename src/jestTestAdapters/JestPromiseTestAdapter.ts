@@ -2,7 +2,7 @@ import JestTestAdapter from './JestTestAdapter';
 
 export default class JestPromiseTestAdapter implements JestTestAdapter {
   private testRunner: any;
-  
+
   public constructor(loader?: NodeRequire) {
     loader = loader || /* istanbul ignore next */ require;
 

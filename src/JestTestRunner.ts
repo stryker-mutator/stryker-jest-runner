@@ -26,7 +26,7 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
   private processRunResults(result: any): RunResult {
     return {
       tests: this.processTestResults(result.testResults),
-      status: (result.success) ? RunStatus.Complete : RunStatus.Error
+      status: RunStatus.Complete
     };
   }
 

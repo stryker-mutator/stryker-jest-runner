@@ -5,15 +5,10 @@ import * as fs from 'fs';
 import ReactConfigLoader from './configLoaders/ReactConfigLoader';
 
 export default class JestConfigEditor implements ConfigEditor {
-  public edit(config: Config): void {
-    let project = 'default';
-
-    if (config.jest && config.jest.project) {
-      project = config.jest.project;
-    }
-
-    config.jest = config.jest || {};
-    config.jest.config = this.getConfigLoader(project).loadConfig();
+  public edit(strykerConfig: Config): void {
+    strykerConfig.jest = strykerConfig.jest || {};
+    strykerConfig.jest.project = strykerConfig.jest.project || 'default';
+    strykerConfig.jest.config = strykerConfig.jest.config || this.getConfigLoader(strykerConfig.jest.project).loadConfig();
   }
 
   private getConfigLoader(project: string): ConfigLoader {

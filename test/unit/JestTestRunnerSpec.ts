@@ -4,6 +4,7 @@ import { Config } from 'stryker-api/config';
 import * as fakeResults from '../helpers/testResultProducer';
 import * as sinon from 'sinon';
 import { assert, expect } from 'chai';
+import { RunStatus, TestStatus } from 'stryker-api/test_runner';
 
 describe('JestTestRunner', () => {
   let sandbox: sinon.SinonSandbox;
@@ -57,12 +58,12 @@ describe('JestTestRunner', () => {
       tests: [
         {
           name: 'App renders without crashing',
-          status: 0,
+          status: TestStatus.Success,
           timeSpentMs: 23,
           failureMessages: []
         }
       ],
-      status: 0
+      status: RunStatus.Complete
     });
   });
 
@@ -74,7 +75,7 @@ describe('JestTestRunner', () => {
     expect(result).to.deep.equal({
       tests: [{
         name: 'App render renders without crashing',
-        status: 1,
+        status: TestStatus.Failed,
         timeSpentMs: 2,
         failureMessages: [
           'Fail message 1',
@@ -83,14 +84,14 @@ describe('JestTestRunner', () => {
       },
       {
         name: 'App render renders without crashing',
-        status: 1,
+        status: TestStatus.Failed,
         timeSpentMs: 0,
         failureMessages: [
           'Fail message 3',
           'Fail message 4'
         ]
       }],
-      status: 1
+      status: RunStatus.Complete
     });
   });
 });

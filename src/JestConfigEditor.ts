@@ -6,8 +6,13 @@ import ReactConfigLoader from './configLoaders/ReactConfigLoader';
 
 export default class JestConfigEditor implements ConfigEditor {
   public edit(strykerConfig: Config): void {
+    // If there is no Jest property on the Stryker config create it
     strykerConfig.jest = strykerConfig.jest || {};
+
+    // When no project is set set it to 'default'
     strykerConfig.jest.project = strykerConfig.jest.project || 'default';
+
+    // When no config property is set load the configuration with the project type
     strykerConfig.jest.config = strykerConfig.jest.config || this.getConfigLoader(strykerConfig.jest.project).loadConfig();
   }
 

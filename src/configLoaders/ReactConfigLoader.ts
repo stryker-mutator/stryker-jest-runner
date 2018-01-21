@@ -1,6 +1,7 @@
 import ConfigLoader from './ConfigLoader';
 import createReactJestConfig from '../utils/createReactJestConfig';
 import * as path from 'path';
+import JestConfiguration from './JestConfiguration';
 
 export default class ReactConfigLoader implements ConfigLoader {
   private loader: NodeRequire;
@@ -11,7 +12,7 @@ export default class ReactConfigLoader implements ConfigLoader {
     this.projectRoot = projectRoot;
   }
 
-  public loadConfig(): string {
+  public loadConfig(): JestConfiguration {
     // Get the location of react script, this is later used to generate the Jest configuration used for React projects.
     const reactScriptsLocation = path.join(this.loader.resolve('react-scripts/package.json'), '..');
 
@@ -21,8 +22,7 @@ export default class ReactConfigLoader implements ConfigLoader {
     // Set test environment to jsdom (otherwise Jest won't run)
     jestConfiguration.testEnvironment = 'jsdom';
 
-    // Return a stringified Jest configuration object.
-    return JSON.stringify(jestConfiguration);
+    return jestConfiguration;
   }
 
   private createJestConfig(reactScriptsLocation: string): any {

@@ -1,20 +1,22 @@
 import ConfigLoader from './ConfigLoader';
 import * as path from 'path';
+import JestConfiguration from './JestConfiguration';
 
+/**
+ * The Default config loader will load the Jest configuration using the package.json in the package root
+ */
 export default class DefaultConfigEditor implements ConfigLoader {
-  private fs: any;
-  private projectRoot: string;
+  private _fs: any;
+  private _projectRoot: string;
 
   constructor(projectRoot: string, fs: any) {
-    this.projectRoot = projectRoot;
-    this.fs = fs;
+    this._projectRoot = projectRoot;
+    this._fs = fs;
   }
 
-  public loadConfig(): string {
-    return JSON.stringify(this.getJestConfigFromPackageJson(this.projectRoot));
-  }
+  public loadConfig(): JestConfiguration {
+    const packageJsonPath = path.join(this._projectRoot, 'package.json');
 
-  private getJestConfigFromPackageJson(projectRoot: string) {
-    return JSON.parse(this.fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8')).jest;
+    return JSON.parse(this._fs.readFileSync(packageJsonPath, 'utf8')).jest;
   }
 }

@@ -12,7 +12,6 @@ module.exports = function(config) {
       '!./src/configLoaders/JestConfiguration.ts',
       '!./src/index.ts',
 
-      // Stryker crashes on integration tests, don't run them
       '!./test/integration/**/*'
     ],
     testRunner: 'mocha',

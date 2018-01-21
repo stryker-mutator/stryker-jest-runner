@@ -13,8 +13,8 @@ describe('JestPromiseTestAdapter', () => {
 
   let jestPromiseTestAdapter: JestPromiseTestAdapter;
 
-  let projectRoot = '/path/to/project';
-  let jestConfig: any = { rootDir: projectRoot };
+  const projectRoot = '/path/to/project';
+  const jestConfig: any = { rootDir: projectRoot };
 
   beforeEach(() => {
     sandbox = sinon.createSandbox();

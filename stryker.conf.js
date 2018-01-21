@@ -2,8 +2,14 @@ module.exports = function(config) {
   config.set({
     files: [
       '!src/**/*.ts',
-      '!**/*.d.ts',
+
       { pattern: 'src/**/*.ts', included: false, mutated: true },
+
+      // Exclude all .d.ts files
+      '!**/*.d.ts',
+
+      // Exclude interface and index file
+      '!./src/configLoaders/JestConfiguration.ts',
       '!./src/index.ts',
 
       // Stryker crashes on integration tests, don't run them

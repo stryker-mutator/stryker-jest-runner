@@ -23,20 +23,19 @@ describe('JestConfigEditor', () => {
     sandbox.stub(reactConfigLoader, 'default').returns(reactConfigLoaderStub);
 
     jestConfigEditor = new JestConfigEditor();
-    config = new Config()
+    config = new Config();
   });
 
   afterEach(() => sandbox.restore());
 
-  it('should call the defaultConfigLoader edit method when no project is defined', () => {
-
-
+  it('should call the defaultConfigLoader loadConfig method when no project is defined', () => {
     jestConfigEditor.edit(config);
 
+    expect(config.jest.project).to.equal('default');
     assert(defaultConfigLoaderStub.loadConfig.calledOnce, 'DefaultConfigLoader loadConfig not called');
   });
 
-  it('should call the reactConfigLoader edit method when no project is defined', () => {
+  it('should call the reactConfigLoader loadConfig method when no project is defined', () => {
     config.set({ jest: { project: 'react' }});
 
     jestConfigEditor.edit(config);

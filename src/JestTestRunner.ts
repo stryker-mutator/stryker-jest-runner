@@ -11,7 +11,7 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
 
     this.projectRoot = process.cwd();
 
-    this.jestConfig = JSON.parse(options.strykerOptions.jest.config);
+    this.jestConfig = options.strykerOptions.jest.config;
     this.jestConfig.rootDir = this.projectRoot;
   }
 

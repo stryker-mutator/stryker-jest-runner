@@ -18,14 +18,14 @@ describe('StrykerJestRunner', () => {
 
   process.env.BABEL_ENV = 'test';
 
-  beforeEach(() => {
+  before(() => {
     sandbox = sinon.createSandbox();
 
     getProjectRootStub = sandbox.stub(process, 'cwd');
     getProjectRootStub.returns(projectRoot);
-
+  
     jestConfigEditor = new JestConfigEditor;
-
+  
     runOptions = {
       files: [],
       port: 0,
@@ -33,7 +33,7 @@ describe('StrykerJestRunner', () => {
     };
   });
 
-  afterEach(() => sandbox.restore());
+  after(() => sandbox.restore());
 
   it('should run tests on the example react project', async () => {
     runOptions.strykerOptions.set({ jest: { project: 'react' } });

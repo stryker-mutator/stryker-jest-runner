@@ -11,6 +11,7 @@ describe('JestConfigEditor', () => {
 
   let defaultConfigLoaderStub: ConfigLoaderStub;
   let reactConfigLoaderStub: ConfigLoaderStub;
+  let config: Config;
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
@@ -21,13 +22,14 @@ describe('JestConfigEditor', () => {
     sandbox.stub(defaultConfigLoader, 'default').returns(defaultConfigLoaderStub);
     sandbox.stub(reactConfigLoader, 'default').returns(reactConfigLoaderStub);
 
-    jestConfigEditor = new JestConfigEditor;
+    jestConfigEditor = new JestConfigEditor();
+    config = new Config()
   });
 
   afterEach(() => sandbox.restore());
 
   it('should call the defaultConfigLoader edit method when no project is defined', () => {
-    const config = new Config;
+
 
     jestConfigEditor.edit(config);
 
@@ -35,7 +37,6 @@ describe('JestConfigEditor', () => {
   });
 
   it('should call the reactConfigLoader edit method when no project is defined', () => {
-    const config = new Config;
     config.set({ jest: { project: 'react' }});
 
     jestConfigEditor.edit(config);
@@ -44,7 +45,6 @@ describe('JestConfigEditor', () => {
   });
 
   it('should return an error when an invalid project is defined', () => {
-    const config = new Config;
     const project = 'invalidProject';
     config.set({ jest: { project } });
 

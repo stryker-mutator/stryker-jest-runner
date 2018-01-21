@@ -18,9 +18,7 @@ describe('JestTestRunner', () => {
     sandbox = sinon.createSandbox();
 
     runJestStub = sinon.stub();
-    runJestStub.returns(Promise.resolve({
-      results: fakeResults.createSuccessResult()
-    }));
+    runJestStub.returns(Promise.resolve({ results: { testResults: [] }}));
 
     strykerOptions = new Config;
     strykerOptions.set({ jest: { config: { property: 'value' }}});
@@ -52,6 +50,8 @@ describe('JestTestRunner', () => {
   });
 
   it('should call the jestTestRunner run method and return a correct runResult', async () => {
+    runJestStub.returns(Promise.resolve({ results: fakeResults.createSuccessResult() }));
+
     const result = await jestTestRunner.run();
 
     expect(result).to.deep.equal({

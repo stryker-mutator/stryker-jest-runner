@@ -24,7 +24,7 @@ describe('StrykerJestRunner', () => {
     getProjectRootStub = sandbox.stub(process, 'cwd');
     getProjectRootStub.returns(projectRoot);
   
-    jestConfigEditor = new JestConfigEditor;
+    jestConfigEditor = new JestConfigEditor();
   
     runOptions = {
       files: [],

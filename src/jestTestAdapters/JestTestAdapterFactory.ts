@@ -5,33 +5,20 @@ import * as semver from 'semver';
 
 export default class JestTestAdapterFactory {
   public static getJestTestAdapter(loader?: NodeRequire): JestTestAdapter {
-    let jestTestAdapter: JestTestAdapter;
-
-    switch (this.getJestType(loader)) {
-      case 'promise':
-        jestTestAdapter = new JestPromiseAdapter;
-        break;
-      case 'callback':
-        jestTestAdapter = new JestCallbackAdapter;
-        break;
-      default:
-        throw new Error('You need Jest version >= 20.0.0 to use Stryker');
-    }
-
-    return jestTestAdapter;
-  }
-
-  private static getJestType(loader?: NodeRequire): 'promise' | 'callback' | 'invalid' {
-    loader = loader || /* istanbul ignore next */ require;
-
-    const jestVersion = loader('jest/package.json').version;
+    const jestVersion = this.getJestVersion(loader || /* istanbul ignore next */ require);
 
     if (semver.satisfies(jestVersion, '<20.0.0')) {
-      return 'invalid';
+      throw new Error('You need Jest version >= 20.0.0 to use Stryker');
     } else if (semver.satisfies(jestVersion, '>=20.0.0 <21.0.0')) {
-      return 'callback';
+      return new JestCallbackAdapter();
     } else {
-      return 'promise';
+      return new JestPromiseAdapter();
     }
+  }
+
+  private static getJestVersion(loader: NodeRequire): string {
+    const packageJson = loader('jest/package.json');
+
+    return packageJson.version;
   }
 }

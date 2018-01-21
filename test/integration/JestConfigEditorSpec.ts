@@ -61,11 +61,12 @@ describe('Integration JestConfigEditor', () => {
         'jsx',
         'node'
       ],
-      rootDir: projectRoot
+      rootDir: projectRoot,
+      setupTestFrameworkScriptFile: undefined
     };
 
     // Parse the json back to an object in order to match
-    expect(JSON.parse(config.jest.config)).to.deep.equal(expectedResult);
+    expect(config.jest.config).to.deep.equal(expectedResult);
   });
 
   it('should load the jest configuration from the package.json', () => {
@@ -73,7 +74,7 @@ describe('Integration JestConfigEditor', () => {
 
     jestConfigEditor.edit(config);
 
-    expect(JSON.parse(config.jest.config)).to.deep.equal({
+    expect(config.jest.config).to.deep.equal({
       rootDir: '/path/to/testResource/exampleProject',
       exampleProperty: 'exampleValue'
     });

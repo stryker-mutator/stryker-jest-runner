@@ -42,7 +42,7 @@ describe('ReactConfigLoader', () => {
   });
 
   it('should generate a configuration', () => {
-    const config = JSON.parse(reactConfigLoader.loadConfig());
+    const config = reactConfigLoader.loadConfig();
 
     expect(config).to.deep.equal({
       relativePath: path.join('node_modules', 'react-scripts', 'test'),

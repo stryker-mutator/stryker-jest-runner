@@ -23,7 +23,7 @@ describe('JestTestRunner', () => {
     }));
 
     strykerOptions = new Config;
-    strykerOptions.set({ jest: { config: '{ "property": "value" }' } });
+    strykerOptions.set({ jest: { config: { property: 'value' }}});
 
     jestTestRunner = new JestTestRunner({
       files: [],

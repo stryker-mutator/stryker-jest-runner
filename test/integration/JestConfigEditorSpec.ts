@@ -74,9 +74,14 @@ describe('Integration JestConfigEditor', () => {
 
     jestConfigEditor.edit(config);
 
+    expect(config.jest.project).to.equal('default');
     expect(config.jest.config).to.deep.equal({
-      rootDir: '/path/to/testResource/exampleProject',
-      exampleProperty: 'exampleValue'
+      collectCoverage: false,
+      moduleFileExtensions: ['js', 'json', 'jsx', 'node'],
+      testEnvironment: 'jest-environment-jsdom',
+      testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$',
+      testRunner: 'jest-jasmine2',
+      verbose: true
     });
   });
 

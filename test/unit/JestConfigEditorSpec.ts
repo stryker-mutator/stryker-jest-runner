@@ -18,7 +18,7 @@ describe('JestConfigEditor', () => {
 
     defaultConfigLoaderStub = sinon.createStubInstance(DefaultConfigLoader);
     reactConfigLoaderStub = sinon.createStubInstance(ReactConfigLoader);
-    
+
     sandbox.stub(defaultConfigLoader, 'default').returns(defaultConfigLoaderStub);
     sandbox.stub(reactConfigLoader, 'default').returns(reactConfigLoaderStub);
 
@@ -36,7 +36,7 @@ describe('JestConfigEditor', () => {
   });
 
   it('should call the reactConfigLoader loadConfig method when no project is defined', () => {
-    config.set({ jest: { project: 'react' }});
+    config.set({ jest: { project: 'react' } });
 
     jestConfigEditor.edit(config);
 
@@ -47,7 +47,7 @@ describe('JestConfigEditor', () => {
     const project = 'invalidProject';
     config.set({ jest: { project } });
 
-    expect(() => jestConfigEditor.edit(config)).to.throw(Error, `No configLoader available for ${ project }`);
+    expect(() => jestConfigEditor.edit(config)).to.throw(Error, `No configLoader available for ${project}`);
   });
 });
 

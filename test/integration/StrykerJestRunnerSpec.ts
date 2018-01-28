@@ -23,9 +23,9 @@ describe('Integration StrykerJestRunner', () => {
     sandbox = sinon.createSandbox();
 
     getProjectRootStub = sandbox.stub(process, 'cwd');
-  
+
     jestConfigEditor = new JestConfigEditor();
-  
+
     runOptions = {
       files: [],
       port: 0,
@@ -74,7 +74,7 @@ describe('Integration StrykerJestRunner', () => {
     expect(result).to.have.property('tests');
     expect(result.tests).to.be.an('array').with.length(6);
 
-    for(let i = 0; i < tests.length; i++) {
+    for (let i = 0; i < tests.length; i++) {
       expect(result.tests[i].name).to.equal(tests[i]);
       expect(result.tests[i].status).to.equal(TestStatus.Success);
       expect(result.tests[i].timeSpentMs).to.be.above(-1);

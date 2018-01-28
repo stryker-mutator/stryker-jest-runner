@@ -20,7 +20,7 @@ export default class DefaultConfigEditor implements ConfigLoader {
     // Parse the package.json and return the Jest property
     const jestConfig = JSON.parse(packageJson).jest;
 
-    if(!jestConfig) {
+    if (!jestConfig) {
       throw new Error('No Jest configuration found in your package.json');
     }
 

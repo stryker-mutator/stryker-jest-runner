@@ -55,7 +55,7 @@ describe('Integration StrykerJestRunner', () => {
   }).timeout(10000);
 
   it('should run tests on the example custom project', async () => {
-    const tests = [
+    const testNames = [
       'Add should be able to add two numbers',
       'Add should be able to add one to a number',
       'Add should be able negate a number',
@@ -74,11 +74,11 @@ describe('Integration StrykerJestRunner', () => {
     expect(result).to.have.property('tests');
     expect(result.tests).to.be.an('array').with.length(6);
 
-    for (let i = 0; i < tests.length; i++) {
-      expect(result.tests[i].name).to.equal(tests[i]);
-      expect(result.tests[i].status).to.equal(TestStatus.Success);
-      expect(result.tests[i].timeSpentMs).to.be.above(-1);
-      expect(result.tests[i].failureMessages).to.be.an('array').that.is.empty;
+    for (let test of result.tests) {
+      expect(testNames).to.include(test.name);
+      expect(test.status).to.equal(TestStatus.Success);
+      expect(test.timeSpentMs).to.be.above(-1);
+      expect(test.failureMessages).to.be.an('array').that.is.empty;
     }
 
     expect(result.status).to.equal(RunStatus.Complete);

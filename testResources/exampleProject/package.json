@@ -4,7 +4,11 @@
   "version": "0.0.0",
   "description": "A testResource for jest-test-runner",
   "jest": {
-    "rootDir": "/path/to/testResource/exampleProject",
-    "exampleProperty": "exampleValue"
+    "collectCoverage": false,
+    "moduleFileExtensions": ["js", "json", "jsx", "node"],
+    "testEnvironment": "jest-environment-jsdom",
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$",
+    "testRunner": "jest-jasmine2",
+    "verbose": true
   }
 }

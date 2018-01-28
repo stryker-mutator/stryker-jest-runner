@@ -22,7 +22,7 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
 
     return {
       tests: this.processTestResults(results.testResults),
-      status: RunStatus.Complete
+      status: (results.numRuntimeErrorTestSuites > 0) ? RunStatus.Error : RunStatus.Complete
     };
   }
 

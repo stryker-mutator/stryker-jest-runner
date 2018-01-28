@@ -1,4 +1,4 @@
-var { getCircumference } = require('../Circle');
+var getCircumference = require('../Circle').getCircumference;
 
 describe('Circle', function() {
   it('should have a circumference of 2PI when the radius is 1', function() {

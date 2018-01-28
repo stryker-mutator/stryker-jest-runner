@@ -1,4 +1,7 @@
-var { add, addOne, isNegativeNumber, negate } = require('../Add');
+var add = require('../Add').add;
+var addOne = require('../Add').addOne;
+var isNegativeNumber = require('../Add').isNegativeNumber;
+var negate = require('../Add').negate;
 
 describe('Add', function() {
   it('should be able to add two numbers', function() {

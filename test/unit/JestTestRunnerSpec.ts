@@ -94,4 +94,15 @@ describe('JestTestRunner', () => {
       status: RunStatus.Complete
     });
   });
+
+  it('should return an error result when a runtime error occurs', async () => {
+    runJestStub.returns(Promise.resolve({ results: { testResults: [], numRuntimeErrorTestSuites: 1 }}));
+
+    const result = await jestTestRunner.run();
+
+    expect(result).to.deep.equal({
+      status: RunStatus.Error,
+      tests: []
+    });
+  })
 });

@@ -104,5 +104,5 @@ describe('JestTestRunner', () => {
       status: RunStatus.Error,
       tests: []
     });
-  })
+  });
 });

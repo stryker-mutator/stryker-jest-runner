@@ -18,6 +18,12 @@ export default class DefaultConfigEditor implements ConfigLoader {
     const packageJson = this._fs.readFileSync(path.join(this._projectRoot, 'package.json'), 'utf8');
 
     // Parse the package.json and return the Jest property
-    return JSON.parse(packageJson).jest;
+    const jestConfig = JSON.parse(packageJson).jest;
+
+    if(!jestConfig) {
+      throw new Error('No Jest configuration found in your package.json');
+    }
+
+    return jestConfig;
   }
 }

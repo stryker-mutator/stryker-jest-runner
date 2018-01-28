@@ -1,6 +1,6 @@
 import DefaultConfigLoader from '../../../src/configLoaders/DefaultConfigLoader';
 import * as sinon from 'sinon';
-import { assert } from 'chai';
+import { expect, assert } from 'chai';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -13,17 +13,28 @@ describe('DefaultConfigLoader', () => {
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
 
-    fsStub.readFileSync = sandbox.stub(fs, 'readFileSync').returns('{}');
+    fsStub.readFileSync = sandbox.stub(fs, 'readFileSync');
 
     defaultConfigLoader = new DefaultConfigLoader(projectRoot, fs);
   });
 
   afterEach(() => sandbox.restore());
 
-  it('should load the jest configuration from the package.json in the project', () => {
-    defaultConfigLoader.loadConfig();
+  it('should load the Jest configuration from the package.json in the project', () => {
+    fsStub.readFileSync.returns('{ "jest": { "exampleProperty": "exampleValue" }}');
 
-    assert(fsStub.readFileSync.calledWith(path.join(projectRoot, 'package.json'), 'utf8'), 'readFileSync not called');
+    const config = defaultConfigLoader.loadConfig();
+
+    assert(fsStub.readFileSync.calledWith(path.join(projectRoot, 'package.json'), 'utf8'), 'readFileSync not called with projectRoot');
+    expect(config).to.deep.equal({
+      exampleProperty: 'exampleValue'
+    });
+  });
+
+  it('should return an error when no Jest configuration is specified in the config.json', () => {
+    fsStub.readFileSync.returns('{}');
+
+    expect(() => defaultConfigLoader.loadConfig()).to.throw(Error, 'No Jest configuration found in your package.json');
   });
 });
 

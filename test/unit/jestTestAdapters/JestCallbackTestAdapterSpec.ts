@@ -20,7 +20,7 @@ describe('JestCallbackTestAdapter', () => {
     sandbox = sinon.createSandbox();
 
     runCLIStub = sinon.stub();
-    runCLIStub.callsFake((config: Object, projectRootArray: Array<string>, callback: Function) => callback('testResult'));
+    runCLIStub.callsArgWith(2, 'testResult');
 
     requireStub = sandbox.stub(loader, 'require');
     requireStub.returns({

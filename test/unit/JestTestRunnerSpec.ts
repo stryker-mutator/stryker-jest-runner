@@ -18,7 +18,7 @@ describe('JestTestRunner', () => {
     sandbox = sinon.createSandbox();
 
     runJestStub = sinon.stub();
-    runJestStub.returns(Promise.resolve({ results: { testResults: [] }}));
+    runJestStub.resolves({ results: { testResults: [] }});
 
     strykerOptions = new Config;
     strykerOptions.set({ jest: { config: { property: 'value' }}});
@@ -50,7 +50,7 @@ describe('JestTestRunner', () => {
   });
 
   it('should call the jestTestRunner run method and return a correct runResult', async () => {
-    runJestStub.returns(Promise.resolve({ results: fakeResults.createSuccessResult() }));
+    runJestStub.resolves({ results: fakeResults.createSuccessResult() });
 
     const result = await jestTestRunner.run();
 
@@ -68,7 +68,7 @@ describe('JestTestRunner', () => {
   });
 
   it('should call the jestTestRunner run method and return a negative runResult', async () => {
-    runJestStub.returns(Promise.resolve({ results: fakeResults.createFailResult() }));
+    runJestStub.resolves({ results: fakeResults.createFailResult() });
 
     const result = await jestTestRunner.run();
 
@@ -96,7 +96,7 @@ describe('JestTestRunner', () => {
   });
 
   it('should return an error result when a runtime error occurs', async () => {
-    runJestStub.returns(Promise.resolve({ results: { testResults: [], numRuntimeErrorTestSuites: 1 }}));
+    runJestStub.resolves({ results: { testResults: [], numRuntimeErrorTestSuites: 1 }});
 
     const result = await jestTestRunner.run();
 

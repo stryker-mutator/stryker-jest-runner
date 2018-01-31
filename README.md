@@ -66,7 +66,7 @@ Stryker-jest-runner also provides a couple of configurable options using the `je
 
 | option | value | default value |
 |----|----|----|
-| project (optional) | The project you are working on (we currently only support "react", the config is loaded using react-scripts) | default |
+| project (optional) | The project you are working on (we currently only support "react", the config is loaded using react-scripts and only works with create-react-app projects) | default |
 | config (optional) | A custom jest configuration (you can also use `require` to load your config here) | undefined |
 
 **Note:** the `project` option is ignored when the `config` option is specified.

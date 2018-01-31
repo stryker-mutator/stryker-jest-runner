@@ -30,7 +30,30 @@ Make sure you set the `testRunner` option to "jest" and set `coverageAnalysis` t
 }
 ```
 
-Stryker-jest-runner provides a couple of configurable options using the `jest` property in your stryker config, when niether of the options are specified we will use the jest configuration in your "package.json":
+The following is an example stryker.conf.js file that will include the tests in your `__tests__` directories and snapshots in your `__snapshots__` directories.
+
+```javascript
+module.exports = function(config) {
+  config.set({
+    files: [
+      "src/**/__tests__/*.js",
+      "src/**/__snapshots__/*.snap",
+      {
+        pattern: "src/**/*.js",
+        mutated: true,
+        included: false
+      }
+    ],
+    testRunner: "jest",
+    mutator: "javascript",
+    coverageAnalysis: "off"
+  });
+};
+```
+
+For more information on what these options mean, take a look at the [Stryker readme](https://github.com/stryker-mutator/stryker/tree/master/packages/stryker#readme).
+
+Stryker-jest-runner also provides a couple of configurable options using the `jest` property in your stryker config, when niether of the options are specified we will use the jest configuration in your "package.json":
 
 ```javascript
 {

@@ -30,7 +30,7 @@ Make sure you set the `testRunner` option to "jest" and set `coverageAnalysis` t
 }
 ```
 
-Stryker-jest-runner provides a couple of configurable options using the `jest` property in your stryker config:
+Stryker-jest-runner provides a couple of configurable options using the `jest` property in your stryker config, when niether of the options are specified we will use the jest configuration in your "package.json":
 
 ```javascript
 {
@@ -41,10 +41,10 @@ Stryker-jest-runner provides a couple of configurable options using the `jest` p
 }
 ```
 
-| option | value |
-|----|----|
-| project (optional) | The project you are working on (we currently only support "react")|
-| config (optional) | A custom jest configuration (you can also use `require` to load your config here) |
+| option | value | default value |
+|----|----|----|
+| project (optional) | The project you are working on (we currently only support "react", the config is loaded using react-scripts) | default |
+| config (optional) | A custom jest configuration (you can also use `require` to load your config here) | undefined |
 
 **Note:** the `project` option is ignored when the `config` option is specified.
 

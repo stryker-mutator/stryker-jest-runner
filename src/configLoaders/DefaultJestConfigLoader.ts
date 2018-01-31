@@ -1,11 +1,11 @@
-import ConfigLoader from './ConfigLoader';
+import JestConfigLoader from './JestConfigLoader';
 import * as path from 'path';
 import JestConfiguration from './JestConfiguration';
 
 /**
  * The Default config loader will load the Jest configuration using the package.json in the package root
  */
-export default class DefaultConfigEditor implements ConfigLoader {
+export default class DefaultJestConfigLoader implements JestConfigLoader {
   private _fs: any;
   private _projectRoot: string;
 

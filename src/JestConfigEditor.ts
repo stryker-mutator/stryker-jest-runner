@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { Config, ConfigEditor } from 'stryker-api/config';
-import ConfigLoader from './configLoaders/ConfigLoader';
+import JestConfigLoader from './configLoaders/JestConfigLoader';
 import DefaultJestConfigLoader from './configLoaders/DefaultJestConfigLoader';
 import ReactScriptsJestConfigLoader from './configLoaders/ReactScriptsJestConfigLoader';
 
@@ -18,8 +18,8 @@ export default class JestConfigEditor implements ConfigEditor {
     strykerConfig.jest.config = strykerConfig.jest.config || this.getConfigLoader(strykerConfig.jest.project).loadConfig();
   }
 
-  private getConfigLoader(project: string): ConfigLoader {
-    let configLoader: ConfigLoader;
+  private getConfigLoader(project: string): JestConfigLoader {
+    let configLoader: JestConfigLoader;
 
     switch (project.toLowerCase()) {
       case DEFAULT_PROJECT_NAME:

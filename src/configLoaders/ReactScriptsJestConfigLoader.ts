@@ -1,9 +1,9 @@
-import ConfigLoader from './ConfigLoader';
+import JestConfigLoader from './JestConfigLoader';
 import createReactJestConfig from '../utils/createReactJestConfig';
 import * as path from 'path';
 import JestConfiguration from './JestConfiguration';
 
-export default class ReactConfigLoader implements ConfigLoader {
+export default class ReactScriptsJestConfigLoader implements JestConfigLoader {
   private loader: NodeRequire;
   private projectRoot: string;
 

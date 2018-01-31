@@ -8,7 +8,7 @@ import JestConfiguration from './JestConfiguration';
  * The loaderConfig method will return a usable config for Jest to use.
  */
 
-export default interface ConfigLoader {
+export default interface JestConfigLoader {
   /*
    * Load the JSON representation of a Jest Configuration.
    *

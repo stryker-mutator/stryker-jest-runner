@@ -1,9 +1,9 @@
-import DefaultConfigLoader, * as defaultConfigLoader from '../../src/configLoaders/DefaultConfigLoader';
-import JestConfigEditor from '../../src/JestConfigEditor';
 import { Config } from 'stryker-api/config';
 import * as sinon from 'sinon';
 import { assert, expect } from 'chai';
-import ReactConfigLoader, * as reactConfigLoader from '../../src/configLoaders/ReactConfigLoader';
+import JestConfigEditor from '../../src/JestConfigEditor';
+import DefaultJestConfigLoader, * as defaultJestConfigLoader from '../../src/configLoaders/DefaultJestConfigLoader';
+import ReactScriptsJestConfigLoader, * as reactScriptsJestConfigLoader from '../../src/configLoaders/ReactScriptsJestConfigLoader';
 
 describe('JestConfigEditor', () => {
   let jestConfigEditor: JestConfigEditor;
@@ -16,11 +16,11 @@ describe('JestConfigEditor', () => {
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
 
-    defaultConfigLoaderStub = sinon.createStubInstance(DefaultConfigLoader);
-    reactConfigLoaderStub = sinon.createStubInstance(ReactConfigLoader);
+    defaultConfigLoaderStub = sinon.createStubInstance(DefaultJestConfigLoader);
+    reactConfigLoaderStub = sinon.createStubInstance(ReactScriptsJestConfigLoader);
 
-    sandbox.stub(defaultConfigLoader, 'default').returns(defaultConfigLoaderStub);
-    sandbox.stub(reactConfigLoader, 'default').returns(reactConfigLoaderStub);
+    sandbox.stub(defaultJestConfigLoader, 'default').returns(defaultConfigLoaderStub);
+    sandbox.stub(reactScriptsJestConfigLoader, 'default').returns(reactConfigLoaderStub);
 
     jestConfigEditor = new JestConfigEditor();
     config = new Config();

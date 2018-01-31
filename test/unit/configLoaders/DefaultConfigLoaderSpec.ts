@@ -1,11 +1,11 @@
-import DefaultConfigLoader from '../../../src/configLoaders/DefaultConfigLoader';
+import DefaultJestConfigLoader from '../../../src/configLoaders/DefaultJestConfigLoader';
 import * as sinon from 'sinon';
 import { expect, assert } from 'chai';
 import * as path from 'path';
 import * as fs from 'fs';
 
-describe('DefaultConfigLoader', () => {
-  let defaultConfigLoader: DefaultConfigLoader;
+describe('DefaultJestConfigLoader', () => {
+  let defaultConfigLoader: DefaultJestConfigLoader;
   let projectRoot: string = '/path/to/project/root';
   let fsStub: FsStub = {};
   let sandbox: sinon.SinonSandbox;
@@ -15,7 +15,7 @@ describe('DefaultConfigLoader', () => {
 
     fsStub.readFileSync = sandbox.stub(fs, 'readFileSync');
 
-    defaultConfigLoader = new DefaultConfigLoader(projectRoot, fs);
+    defaultConfigLoader = new DefaultJestConfigLoader(projectRoot, fs);
   });
 
   afterEach(() => sandbox.restore());

@@ -21,19 +21,34 @@ The stryker-jest-runner is a plugin for Stryker to enable Jest as a test runner.
 For the minimum supported versions, see the peerDependencies section in package.json.
 
 ## Configuration
-Set your test runner to `jest` in the stryker config, optionally provide the project you're working on for a preset configuration.
-We currently only support "react" preset, enable it by adding the `jest` config property to your project and specify the `project` property.
-Also make sure you set your `testRunner` to "jest" and disable `coverageAnalysis`.
+Make sure you set the `testRunner` option to "jest" and set `coverageAnalysis` to "off" in your Stryker configuration.
 
 ```javascript
-jest: {
-    project: 'react',
-    testRunner: 'jest',
+{
+    testRunner: 'jest'
     coverageAnalysis: 'off'
 }
 ```
 
-### Loading the plugin
+Stryker-jest-runner provides a couple of configurable options using the `jest` property in your stryker config:
+
+```javascript
+{
+    jest: {
+        project: 'react',
+        config: require('path/to/your/custom/jestConfig.js')
+    }
+}
+```
+
+| option | value |
+|----|----|
+| project (optional) | The project you are working on (we currently only support "react")|
+| config (optional) | A custom jest configuration (you can also use `require` to load your config here) |
+
+**Note:** the `project` option is ignored when the `config` option is specified.
+
+## Loading the plugin
 In order to use the `stryker-jest-runner` it must be loaded in the Stryker mutation testing framework via the Stryker configuration. The easiest way to achieve this, is not have a plugins section in your config file. That way, all node_modules starting with `stryker-` will be loaded.
 
 ## Contributing

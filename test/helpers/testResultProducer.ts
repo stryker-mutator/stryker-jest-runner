@@ -48,6 +48,30 @@ export function createFailResult() {
         coverage: undefined,
         sourceMaps: {},
         skipped: false
+      },
+      {
+        console: null,
+        failureMessage: null,
+        numFailingTests: 0,
+        numPassingTests: 1,
+        numPendingTests: 0,
+        perfStats: [Object],
+        snapshot: [Object],
+        testFilePath: 'App.test.js',
+        testResults: [
+          {
+            ancestorTitles: ['App'],
+            duration: 23,
+            failureMessages: [],
+            fullName: 'App renders without crashing',
+            numPassingAsserts: 0,
+            status: 'passed',
+            title: 'renders without crashing'
+          }
+        ],
+        coverage: undefined,
+        sourceMaps: {},
+        skipped: false
       }
     ],
     wasInterrupted: false

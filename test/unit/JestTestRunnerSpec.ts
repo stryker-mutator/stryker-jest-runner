@@ -55,6 +55,7 @@ describe('JestTestRunner', () => {
     const result = await jestTestRunner.run();
 
     expect(result).to.deep.equal({
+      status: RunStatus.Complete,
       tests: [
         {
           name: 'App renders without crashing',
@@ -63,7 +64,7 @@ describe('JestTestRunner', () => {
           failureMessages: []
         }
       ],
-      status: RunStatus.Complete
+      errorMessages: []
     });
   });
 
@@ -73,6 +74,7 @@ describe('JestTestRunner', () => {
     const result = await jestTestRunner.run();
 
     expect(result).to.deep.equal({
+      status: RunStatus.Complete,
       tests: [{
         name: 'App render renders without crashing',
         status: TestStatus.Failed,
@@ -90,8 +92,14 @@ describe('JestTestRunner', () => {
           'Fail message 3',
           'Fail message 4'
         ]
+      },
+      {
+        name: 'App renders without crashing',
+        status: TestStatus.Success,
+        timeSpentMs: 23,
+        failureMessages: []
       }],
-      status: RunStatus.Complete
+      errorMessages: ['test failed - App.test.js']
     });
   });
 
@@ -102,7 +110,8 @@ describe('JestTestRunner', () => {
 
     expect(result).to.deep.equal({
       status: RunStatus.Error,
-      tests: []
+      tests: [],
+      errorMessages: []
     });
   });
 });

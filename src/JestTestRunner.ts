@@ -20,17 +20,21 @@ export default class JestTestRunner extends EventEmitter implements TestRunner {
 
     const { results } = await jestTestRunner.run(this.jestConfig, process.cwd());
 
+    // Map the failureMessages from each testSuite to a single array then filter out empty errors
+    const errorMessages = results.testResults.map((testSuite: any) => testSuite.failureMessage).filter((errorMessage: string) => errorMessage);
+
     return {
       tests: this.processTestResults(results.testResults),
-      status: (results.numRuntimeErrorTestSuites > 0) ? RunStatus.Error : RunStatus.Complete
+      status: (results.numRuntimeErrorTestSuites > 0) ? RunStatus.Error : RunStatus.Complete,
+      errorMessages
     };
   }
 
-  private processTestResults(fileResults: Array<any>): Array<TestResult> {
+  private processTestResults(suiteResults: Array<any>): Array<TestResult> {
     const testResults: Array<TestResult> = [];
 
-    for (let fileResult of fileResults) {
-      for (let testResult of fileResult.testResults) {
+    for (let suiteResult of suiteResults) {
+      for (let testResult of suiteResult.testResults) {
         testResults.push({
           name: testResult.fullName,
           status: (testResult.status === 'passed') ? TestStatus.Success : TestStatus.Failed,

@@ -4,6 +4,7 @@ import JestConfigLoader from './configLoaders/JestConfigLoader';
 import DefaultJestConfigLoader from './configLoaders/DefaultJestConfigLoader';
 import ReactScriptsJestConfigLoader from './configLoaders/ReactScriptsJestConfigLoader';
 import JestConfiguration from './configLoaders/JestConfiguration';
+import JEST_OVERRIDE_OPTIONS from './jestOverrideOptions';
 
 const DEFAULT_PROJECT_NAME = 'default';
 
@@ -40,11 +41,6 @@ export default class JestConfigEditor implements ConfigEditor {
   }
 
   private overrideProperties(config: JestConfiguration) {
-    config.testResultsProcessor = undefined;
-    config.collectCoverage = false;
-    config.verbose = false;
-    config.bail = true;
-
-    return config;
+    return Object.assign(config, JEST_OVERRIDE_OPTIONS);
   }
 }

@@ -29,17 +29,12 @@ export default class DefaultJestConfigLoader implements JestConfigLoader {
   private readConfigFromJestConfigFile() {
     try {
       return this._loader(path.join(this._projectRoot, 'jest.config.js'));
-    } catch {
-      return undefined;
-    }
+    } catch { /* Don't return anything (implicitly return undefined) */ }
   }
 
   private readConfigFromPackageJson() {
     try {
       return JSON.parse(this._fs.readFileSync(path.join(this._projectRoot, 'package.json'), 'utf8')).jest;
-    }
-    catch {
-      return undefined;
-    }
+    } catch { /* Don't return anything (implicitly return undefined) */ } 
   }
 }

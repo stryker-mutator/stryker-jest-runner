@@ -3,6 +3,7 @@ import { Config, ConfigEditor } from 'stryker-api/config';
 import JestConfigLoader from './configLoaders/JestConfigLoader';
 import DefaultJestConfigLoader from './configLoaders/DefaultJestConfigLoader';
 import ReactScriptsJestConfigLoader from './configLoaders/ReactScriptsJestConfigLoader';
+import JestConfiguration from './configLoaders/JestConfiguration';
 
 const DEFAULT_PROJECT_NAME = 'default';
 
@@ -16,6 +17,9 @@ export default class JestConfigEditor implements ConfigEditor {
 
     // When no config property is set load the configuration with the project type
     strykerConfig.jest.config = strykerConfig.jest.config || this.getConfigLoader(strykerConfig.jest.project).loadConfig();
+
+    // Override collectCoverage, verbose and bail
+    strykerConfig.jest.config = this.overrideProperties(strykerConfig.jest.config);
   }
 
   private getConfigLoader(project: string): JestConfigLoader {
@@ -33,5 +37,13 @@ export default class JestConfigEditor implements ConfigEditor {
     }
 
     return configLoader;
+  }
+
+  private overrideProperties(config: JestConfiguration) {
+    config.collectCoverage = false;
+    config.verbose = false;
+    config.bail = true;
+
+    return config;
   }
 }

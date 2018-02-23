@@ -18,8 +18,7 @@ describe('Integration StrykerJestRunner', function () {
 
   let jestConfigEditor: JestConfigEditor;
   let runOptions: RunnerOptions;
-  let getProjectRootStub: sinon.SinonStub;
-
+  let processCwdStub: sinon.SinonStub;
   let sandbox: sinon.SinonSandbox;
 
   // Names of the tests in the example projects
@@ -35,7 +34,7 @@ describe('Integration StrykerJestRunner', function () {
   beforeEach(() => {
     sandbox = sinon.createSandbox();
 
-    getProjectRootStub = sandbox.stub(process, 'cwd');
+    processCwdStub = sandbox.stub(process, 'cwd');
 
     jestConfigEditor = new JestConfigEditor();
 
@@ -49,7 +48,7 @@ describe('Integration StrykerJestRunner', function () {
   afterEach(() => sandbox.restore());
 
   it('should run tests on the example react project', async () => {
-    getProjectRootStub.returns(getProjectRoot('reactProject'));
+    processCwdStub.returns(getProjectRoot('reactProject'));
     runOptions.strykerOptions.set({ jest: { project: 'react' } });
 
     jestConfigEditor.edit(runOptions.strykerOptions as Config);
@@ -68,7 +67,7 @@ describe('Integration StrykerJestRunner', function () {
   }).timeout(10000);
 
   it('should run tests on the example custom project using package.json', async () => {
-    getProjectRootStub.returns(getProjectRoot('exampleProject'));
+    processCwdStub.returns(getProjectRoot('exampleProject'));
 
     jestConfigEditor.edit(runOptions.strykerOptions as Config);
     const jestTestRunner = new JestTestRunner(runOptions);
@@ -89,7 +88,7 @@ describe('Integration StrykerJestRunner', function () {
   });
 
   it('should run tests on the example custom project using jest.config.js', async () => {
-    getProjectRootStub.returns(getProjectRoot('exampleProjectWithExplicitJestConfig'));
+    processCwdStub.returns(getProjectRoot('exampleProjectWithExplicitJestConfig'));
 
     jestConfigEditor.edit(runOptions.strykerOptions as Config);
     const jestTestRunner = new JestTestRunner(runOptions);

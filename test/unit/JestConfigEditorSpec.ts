@@ -43,6 +43,18 @@ describe('JestConfigEditor', () => {
     assert(reactConfigLoaderStub.loadConfig.calledOnce, 'ReactConfigLoader loadConfig not called');
   });
 
+  it('should override verbose, collectcoverage and bail on all loaded configs', () => {
+    defaultConfigLoaderStub.loadConfig.returns({ collectCoverage : true, verbose: true, bail: false });
+
+    jestConfigEditor.edit(config);
+
+    expect(config.jest.config).to.deep.equal({ 
+      collectCoverage: false,
+      verbose: false,
+      bail: true
+    });
+  });
+
   it('should return an error when an invalid project is defined', () => {
     const project = 'invalidProject';
     config.set({ jest: { project } });

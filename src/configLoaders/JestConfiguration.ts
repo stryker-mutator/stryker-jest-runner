@@ -60,6 +60,6 @@ export default interface JestConfiguration {
   transformIgnorePatterns: Glob[];
   unmockedModulePathPatterns: Maybe<string[]>;
   watchPathIgnorePatterns: string[];
-  testResultsProcessor: string;
+  testResultsProcessor?: string;
   verbose: boolean;
 }

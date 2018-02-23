@@ -19,7 +19,7 @@ export default class JestConfigEditor implements ConfigEditor {
     // When no config property is set load the configuration with the project type
     strykerConfig.jest.config = strykerConfig.jest.config || this.getConfigLoader(strykerConfig.jest.project).loadConfig();
 
-    // Override collectCoverage, verbose and bail
+    // Override some of the config properties to optimise Jest for Stryker
     strykerConfig.jest.config = this.overrideProperties(strykerConfig.jest.config);
   }
 

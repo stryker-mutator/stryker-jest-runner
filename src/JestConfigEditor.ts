@@ -40,6 +40,7 @@ export default class JestConfigEditor implements ConfigEditor {
   }
 
   private overrideProperties(config: JestConfiguration) {
+    config.testResultsProcessor = undefined;
     config.collectCoverage = false;
     config.verbose = false;
     config.bail = true;

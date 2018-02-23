@@ -61,7 +61,7 @@ describe('Integration StrykerJestRunner', function () {
     expect(result.tests).to.be.an('array').that.is.not.empty;
     expect(result.tests[0].name).to.equal('renders without crashing');
     expect(result.tests[0].status).to.equal(TestStatus.Success);
-    expect(result.tests[0].timeSpentMs).to.be.above(0);
+    expect(result.tests[0].timeSpentMs).to.be.above(-1);
     expect(result.tests[0].failureMessages).to.be.an('array').that.is.empty;
     expect(result.status).to.equal(RunStatus.Complete);
   });
@@ -75,7 +75,7 @@ describe('Integration StrykerJestRunner', function () {
     const result = await jestTestRunner.run();
 
     expect(result).to.have.property('tests');
-    expect(result.tests).to.be.an('array').with.length(6);
+    expect(result.tests).to.be.an('array').with.length(testNames.length);
 
     for (let test of result.tests) {
       expect(testNames).to.include(test.name);
@@ -96,7 +96,7 @@ describe('Integration StrykerJestRunner', function () {
     const result = await jestTestRunner.run();
 
     expect(result).to.have.property('tests');
-    expect(result.tests).to.be.an('array').with.length(6);
+    expect(result.tests).to.be.an('array').with.length(testNames.length);
 
     for (let test of result.tests) {
       expect(testNames).to.include(test.name);

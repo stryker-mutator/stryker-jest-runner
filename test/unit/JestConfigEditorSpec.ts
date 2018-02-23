@@ -4,6 +4,7 @@ import { assert, expect } from 'chai';
 import JestConfigEditor from '../../src/JestConfigEditor';
 import DefaultJestConfigLoader, * as defaultJestConfigLoader from '../../src/configLoaders/DefaultJestConfigLoader';
 import ReactScriptsJestConfigLoader, * as reactScriptsJestConfigLoader from '../../src/configLoaders/ReactScriptsJestConfigLoader';
+import JestConfiguration from '../../src/configLoaders/JestConfiguration';
 
 describe('JestConfigEditor', () => {
   let jestConfigEditor: JestConfigEditor;
@@ -21,6 +22,10 @@ describe('JestConfigEditor', () => {
 
     sandbox.stub(defaultJestConfigLoader, 'default').returns(defaultConfigLoaderStub);
     sandbox.stub(reactScriptsJestConfigLoader, 'default').returns(reactConfigLoaderStub);
+
+    const defaultOptions: Partial<JestConfiguration> = { collectCoverage : true, verbose: true, bail: false };
+    defaultConfigLoaderStub.loadConfig.returns(defaultOptions);
+    reactConfigLoaderStub.loadConfig.returns(defaultOptions);
 
     jestConfigEditor = new JestConfigEditor();
     config = new Config();
@@ -44,8 +49,6 @@ describe('JestConfigEditor', () => {
   });
 
   it('should override verbose, collectcoverage and bail on all loaded configs', () => {
-    defaultConfigLoaderStub.loadConfig.returns({ collectCoverage : true, verbose: true, bail: false });
-
     jestConfigEditor.edit(config);
 
     expect(config.jest.config).to.deep.equal({ 

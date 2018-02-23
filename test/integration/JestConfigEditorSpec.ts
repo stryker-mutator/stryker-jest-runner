@@ -62,7 +62,10 @@ describe('Integration JestConfigEditor', () => {
         'node'
       ],
       rootDir: projectRoot,
-      setupTestFrameworkScriptFile: undefined
+      setupTestFrameworkScriptFile: undefined,
+      verbose: false,
+      collectCoverage: false,
+      bail: true
     };
 
     // Parse the json back to an object in order to match
@@ -81,7 +84,7 @@ describe('Integration JestConfigEditor', () => {
       testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$',
       testRunner: 'jest-jasmine2',
       collectCoverage: false,
-      verbose: true,
+      verbose: false,
       bail: true
     });
   });

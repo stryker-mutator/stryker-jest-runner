@@ -53,7 +53,7 @@ describe('Integration StrykerJestRunner', function () {
     expect(result.tests[0].timeSpentMs).to.be.above(0);
     expect(result.tests[0].failureMessages).to.be.an('array').that.is.empty;
     expect(result.status).to.equal(RunStatus.Complete);
-  }).timeout(10000);
+  });
 
   it('should run tests on the example custom project', async () => {
     const testNames = [

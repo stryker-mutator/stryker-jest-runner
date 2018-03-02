@@ -107,6 +107,24 @@ describe('Integration StrykerJestRunner', function () {
 
     expect(result.status).to.equal(RunStatus.Complete);
   });
+
+  it('should run tests on example project with failing tests', async () => {
+    processCwdStub.returns(getProjectRoot('exampleProjectWithFailingTests'));
+
+    jestConfigEditor.edit(runOptions.strykerOptions as Config);
+    const jestTestRunner = new JestTestRunner(runOptions);
+
+    const result = await jestTestRunner.run();
+
+    expect(result).to.have.property('tests');
+    expect(result.tests).to.be.an('array').with.length(2);
+
+    for (const test of result.tests) {
+      expect(test.status).to.equal((test.name === 'Hello should print "Hello stryker!" when no input is provided') ? TestStatus.Success : TestStatus.Failed);
+    }
+
+    expect(result.status).to.equal(RunStatus.Complete);
+  });
 });
 
 function getProjectRoot(testResource: string) {

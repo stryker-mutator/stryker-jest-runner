@@ -13,6 +13,8 @@ const jestProjectRoot = process.cwd();
 // Needed for Jest in order to run tests
 process.env.BABEL_ENV = 'test';
 
+const FIRST_TEST = 0;
+
 describe('Integration StrykerJestRunner', function () {
   // Set timeout for integration tests to 10 seconds for travis
   this.timeout(10000);
@@ -60,10 +62,10 @@ describe('Integration StrykerJestRunner', function () {
 
     expect(result).to.have.property('tests');
     expect(result.tests).to.be.an('array').that.is.not.empty;
-    expect(result.tests[0].name).to.equal('renders without crashing');
-    expect(result.tests[0].status).to.equal(TestStatus.Success);
-    expect(result.tests[0].timeSpentMs).to.be.above(-1);
-    expect(result.tests[0].failureMessages).to.be.an('array').that.is.empty;
+    expect(result.tests[FIRST_TEST].name).to.equal('renders without crashing');
+    expect(result.tests[FIRST_TEST].status).to.equal(TestStatus.Success);
+    expect(result.tests[FIRST_TEST].timeSpentMs).to.be.above(-1);
+    expect(result.tests[FIRST_TEST].failureMessages).to.be.an('array').that.is.empty;
     expect(result.status).to.equal(RunStatus.Complete);
   });
 

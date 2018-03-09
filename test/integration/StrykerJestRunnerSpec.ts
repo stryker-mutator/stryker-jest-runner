@@ -94,24 +94,6 @@ function assertExampleProjectRunResult(result: RunResult) {
 
   expect(result).to.have.property('tests');
   expect(result.tests).to.be.an('array').with.length(expectedPartialTestResults.length);
-
-  for (const test of result.tests) {
-    expect(test.name).to.be.oneOf(expectedPartialTestResults.map(testResult => testResult.name));
-
-    // We already determined that the test is one of the tests specified in the partialExpectedTestResults array
-    // matchTestResult cannot return undefined because of this, cast to TestResult unconditionally.
-    const expectedTestResult = matchTestResult(test, expectedPartialTestResults) as TestResult;
-
-    expect(test.status).to.equal(expectedTestResult.status);
-    expect(test.timeSpentMs).to.be.above(-1);
-    expect(test.failureMessages).to.be.an('array');
-  }
-
+  expect(result.tests.map(t => ({ name: t.name, status: t.status }))).to.have.deep.members(expectedPartialTestResults);
   expect(result.status).to.equal(RunStatus.Complete);
-}
-
-function matchTestResult(testResult: TestResult, expectedTestResults: Array<Partial<TestResult>>): Partial<TestResult> | undefined {
-  return expectedTestResults.find(expectedTestResult => {
-      return expectedTestResult.name === testResult.name;
-  });
 }

@@ -3,7 +3,7 @@ exports.add = function(num1, num2) {
 };
 
 exports.addOne = function(number) {
-  number++;
+  number--;
   return number;
 };
 

@@ -1,10 +1,11 @@
 import JestConfigEditor from '../../src/JestConfigEditor';
 import { Config } from 'stryker-api/config';
-import { RunnerOptions, RunStatus, TestStatus } from 'stryker-api/test_runner';
+import { RunnerOptions, RunStatus, TestStatus, TestResult } from 'stryker-api/test_runner';
 import * as sinon from 'sinon';
 import { expect } from 'chai';
 import JestTestRunner from '../../src/JestTestRunner';
 import * as path from 'path';
+import matchTestResult from '../unit/utils/matchTestResult';
 
 // Get the project root, we will be stub process.cwd later on
 const jestProjectRoot = process.cwd();
@@ -21,14 +22,14 @@ describe('Integration StrykerJestRunner', function () {
   let processCwdStub: sinon.SinonStub;
   let sandbox: sinon.SinonSandbox;
 
-  // Names of the tests in the example projects
-  const testNames = [
-    'Add should be able to add two numbers',
-    'Add should be able to add one to a number',
-    'Add should be able negate a number',
-    'Add should be able to recognize a negative number',
-    'Add should be able to recognize that 0 is not a negative number',
-    'Circle should have a circumference of 2PI when the radius is 1'
+  // Partial of the expected test results
+  const partialExpectedTestResults: Array<Partial<TestResult>> = [
+    { name: 'Add should be able to add two numbers', status: TestStatus.Success },
+    { name: 'Add should be able to add one to a number', status: TestStatus.Failed },
+    { name: 'Add should be able negate a number', status: TestStatus.Success },
+    { name: 'Add should be able to recognize a negative number', status: TestStatus.Success },
+    { name: 'Add should be able to recognize that 0 is not a negative number', status: TestStatus.Success },
+    { name: 'Circle should have a circumference of 2PI when the radius is 1', status: TestStatus.Failed }
   ];
 
   beforeEach(() => {
@@ -75,13 +76,18 @@ describe('Integration StrykerJestRunner', function () {
     const result = await jestTestRunner.run();
 
     expect(result).to.have.property('tests');
-    expect(result.tests).to.be.an('array').with.length(testNames.length);
+    expect(result.tests).to.be.an('array').with.length(partialExpectedTestResults.length);
 
-    for (let test of result.tests) {
-      expect(testNames).to.include(test.name);
-      expect(test.status).to.equal(TestStatus.Success);
-      expect(test.timeSpentMs).to.be.above(-1);
-      expect(test.failureMessages).to.be.an('array').that.is.empty;
+    for (const test of result.tests) {
+      expect(partialExpectedTestResults.map(testResult => testResult.name)).to.include(test.name);
+
+      const expectedTestResult = matchTestResult(test, partialExpectedTestResults);
+
+      if (expectedTestResult) {
+        expect(test.status).to.equal(expectedTestResult.status);
+        expect(test.timeSpentMs).to.be.above(-1);
+        expect(test.failureMessages).to.be.an('array');
+      }
     }
 
     expect(result.status).to.equal(RunStatus.Complete);
@@ -96,31 +102,18 @@ describe('Integration StrykerJestRunner', function () {
     const result = await jestTestRunner.run();
 
     expect(result).to.have.property('tests');
-    expect(result.tests).to.be.an('array').with.length(testNames.length);
-
-    for (let test of result.tests) {
-      expect(testNames).to.include(test.name);
-      expect(test.status).to.equal(TestStatus.Success);
-      expect(test.timeSpentMs).to.be.above(-1);
-      expect(test.failureMessages).to.be.an('array').that.is.empty;
-    }
-
-    expect(result.status).to.equal(RunStatus.Complete);
-  });
-
-  it('should run tests on example project with failing tests', async () => {
-    processCwdStub.returns(getProjectRoot('exampleProjectWithFailingTests'));
-
-    jestConfigEditor.edit(runOptions.strykerOptions as Config);
-    const jestTestRunner = new JestTestRunner(runOptions);
-
-    const result = await jestTestRunner.run();
-
-    expect(result).to.have.property('tests');
-    expect(result.tests).to.be.an('array').with.length(2);
+    expect(result.tests).to.be.an('array').with.length(partialExpectedTestResults.length);
 
     for (const test of result.tests) {
-      expect(test.status).to.equal((test.name === 'Hello should print "Hello stryker!" when no input is provided') ? TestStatus.Success : TestStatus.Failed);
+      expect(partialExpectedTestResults.map(testResult => testResult.name)).to.include(test.name);
+
+      const expectedTestResult = matchTestResult(test, partialExpectedTestResults);
+
+      if (expectedTestResult) {
+        expect(test.status).to.equal(expectedTestResult.status);
+        expect(test.timeSpentMs).to.be.above(-1);
+        expect(test.failureMessages).to.be.an('array');
+      }
     }
 
     expect(result.status).to.equal(RunStatus.Complete);

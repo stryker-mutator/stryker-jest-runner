@@ -56,15 +56,6 @@ The following is an example stryker.conf.js file that will include the tests in 
 ```javascript
 module.exports = function(config) {
   config.set({
-    files: [
-      "src/**/__tests__/*.js",
-      "src/**/__snapshots__/*.snap",
-      {
-        pattern: "src/**/*.js",
-        mutated: true,
-        included: false
-      }
-    ],
     testRunner: "jest",
     mutator: "javascript",
     coverageAnalysis: "off"

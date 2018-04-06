@@ -51,14 +51,15 @@ The stryker-jest-runner also provides a couple of configurable options using the
 **Note:** When neither of the options are specified it will use the jest configuration in your "package.json". \
 **Note:** the `project` option is ignored when the `config` option is specified.
 
-The following is an example stryker.conf.js file that will include the tests in your `__tests__` directories and snapshots in your `__snapshots__` directories.
+The following is an example stryker.conf.js file:
 
 ```javascript
 module.exports = function(config) {
   config.set({
     testRunner: "jest",
     mutator: "javascript",
-    coverageAnalysis: "off"
+    coverageAnalysis: "off",
+    mutate: ["src/**/*.js"]
   });
 };
 ```

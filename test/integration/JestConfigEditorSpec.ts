@@ -84,7 +84,7 @@ describe('Integration test for Jest ConfigEditor', () => {
       ],
       globals: {
         'ts-jest': {
-          tsConfigFile: path.join(projectRoot, 'tsconfig.test.json'),
+          tsConfigFile: path.join(projectRoot, 'testResources', 'reactTsProject', 'tsconfig.test.json'),
         },
       },
       setupFiles: [path.join(projectRoot, 'node_modules', 'react-scripts-ts', 'config', 'polyfills.js')],

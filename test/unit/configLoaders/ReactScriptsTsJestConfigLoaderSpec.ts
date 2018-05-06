@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as sinon from 'sinon';
 import { assert, expect } from 'chai';
-import ReactScriptsTsJestConfigLoader from '../../../src/configLoaders/ReactScriptsTsJestConfigLoader';
+import ReactScriptsTSJestConfigLoader from '../../../src/configLoaders/ReactScriptsTSJestConfigLoader';
 import * as helper from '../../../src/utils/createReactJestConfig';
 
 const fakeRequire: any = {
@@ -9,7 +9,7 @@ const fakeRequire: any = {
 };
 
 describe('ReactScriptsTsJestConfigLoader', () => {
-  let reactConfigLoader: ReactScriptsTsJestConfigLoader;
+  let reactConfigLoader: ReactScriptsTSJestConfigLoader;
   let sandbox: sinon.SinonSandbox;
   let requireResolveStub: sinon.SinonStub;
   let createReactJestConfigStub: sinon.SinonStub;
@@ -30,7 +30,7 @@ describe('ReactScriptsTsJestConfigLoader', () => {
     requireResolveStub = sandbox.stub(fakeRequire, 'resolve');
     requireResolveStub.returns(reactScriptsTsPackagePath);
 
-    reactConfigLoader = new ReactScriptsTsJestConfigLoader(projectRoot, fakeRequire);
+    reactConfigLoader = new ReactScriptsTSJestConfigLoader(projectRoot, fakeRequire);
   });
 
   afterEach(() => sandbox.restore());

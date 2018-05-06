@@ -54,7 +54,7 @@ The stryker-jest-runner also provides a couple of configurable options using the
 
 **Note:** When neither of the options are specified it will use the Jest configuration in your "package.json". \
 **Note:** the `project` option is ignored when the `config` option is specified.
-**Note:** Stryker currently only works for CRA-projects that have not been _ejected_.
+**Note:** Stryker currently only works for CRA-projects that have not been [_ejected_](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#npm-run-eject).
 
 The following is an example stryker.conf.js file:
 

@@ -3,7 +3,7 @@ import { createReactTsJestConfig } from '../utils/createReactJestConfig';
 import * as path from 'path';
 import JestConfiguration from './JestConfiguration';
 
-export default class ReactScriptsTsJestConfigLoader implements JestConfigLoader {
+export default class ReactScriptsTSJestConfigLoader implements JestConfigLoader {
   private loader: NodeRequire;
   private projectRoot: string;
 

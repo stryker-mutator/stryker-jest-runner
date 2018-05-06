@@ -14,7 +14,6 @@ export default class JestTestAdapterFactory {
       JestTestAdapterFactory.log.debug(`Detected Jest below 22.0.0`);
       throw new Error('You need Jest version >= 22.0.0 to use Stryker');
     } else {
-      JestTestAdapterFactory.log.debug(`Detected Jest between above 22.0.0`);
       return new JestPromiseAdapter();
     }
   }

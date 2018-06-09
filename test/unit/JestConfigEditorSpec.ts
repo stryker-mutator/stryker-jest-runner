@@ -45,7 +45,7 @@ describe('JestConfigEditor', () => {
     assert(defaultConfigLoaderStub.loadConfig.calledOnce, 'DefaultConfigLoader loadConfig not called');
   });
 
-  it('should call the ReactScriptsJestConfigLoader loadConfig method when no project is defined', () => {
+  it('should call the ReactScriptsJestConfigLoader loadConfig method when \'react\' is defined as project', () => {
     config.set({ jest: { project: 'react' } });
 
     jestConfigEditor.edit(config);
@@ -53,7 +53,7 @@ describe('JestConfigEditor', () => {
     assert(reactScriptsJestConfigLoaderStub.loadConfig.calledOnce, 'ReactScriptsJestConfigLoader loadConfig not called');
   });
 
-  it('should call the ReactScriptsTSJestConfigLoader loadConfig method when no project is defined', () => {
+  it('should call the ReactScriptsTSJestConfigLoader loadConfig method when \'react-ts\' is defined as project', () => {
     config.set({ jest: { project: 'react-ts' } });
 
     jestConfigEditor.edit(config);

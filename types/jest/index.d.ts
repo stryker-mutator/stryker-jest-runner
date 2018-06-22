@@ -1,74 +1,59 @@
 declare namespace Jest {
+  // RunCLI does not have any official types, this will do for our implementation
   function runCLI(cliParams: RunCliParameters, projectRoots: Array<String>): any 
 
+  // Taken from https://goo.gl/qHifyP, removed all stuff that we are not using
+  // Also added 'runInBand' which does not exist in the official types
   interface RunCliParameters {
     config: string;
     runInBand: boolean;
     silent: boolean;
   }
 
+  // Taken from https://goo.gl/qHifyP, removed all stuff that we are not using
   interface Configuration {
-    reporters: Array<any>;
-    automock: boolean;
-    browser: boolean;
+    reporters: Array<string>;
     bail: boolean;
-    cacheDirectory: Path;
     collectCoverage: boolean;
-    collectCoverageFrom: Array<string>;
-    coverageDirectory: string;
-    coveragePathIgnorePatterns: string[];
-    coverageReporters: Array<string>;
-    forceCoverageMatch: Glob[];
-    cwd: Path;
-    detectLeaks: boolean;
-    displayName: Maybe<string>;
-    globals: ConfigGlobals;
-    haste: HasteConfig;
-    moduleDirectories: string[];
-    moduleFileExtensions: string[];
-    moduleLoader: Path;
-    moduleNameMapper: Array<[string, string]>;
-    modulePathIgnorePatterns: string[];
-    modulePaths: string[];
-    name: string;
-    resetMocks: boolean;
-    resetModules: boolean;
-    resolver: Maybe<Path>;
-    rootDir: Path;
-    roots: Path[];
-    runner: string;
-    setupFiles: Path[];
-    setupTestFrameworkScriptFile: Path;
-    skipNodeResolution: boolean;
-    snapshotSerializers: Path[];
-    testEnvironment: string;
-    testEnvironmentOptions: object;
-    testLocationInResults: boolean;
-    testMatch: Glob[];
-    testPathIgnorePatterns: string[];
-    testRegex: string;
-    testRunner: string;
-    testURL: string;
-    timers: 'real' | 'fake';
-    transform: Array<[string, Path]>;
-    transformIgnorePatterns: Glob[];
-    unmockedModulePathPatterns: Maybe<string[]>;
-    watchPathIgnorePatterns: string[];
-    testResultsProcessor?: string;
     verbose: boolean;
+    testResultsProcessor: Maybe<string>;
   }
 
-  interface HasteConfig {
-    defaultPlatform?: Maybe<string>;
-    hasteImplModulePath?: string;
-    platforms?: string[];
-    providesModuleNodeModules: string[];
+  // Taken from https://goo.gl/h48ajP, removed all stuff that we are not using
+  interface AggregatedResult {
+      numFailedTests: number;
+      numFailedTestSuites: number;
+      numPassedTests: number;
+      numPassedTestSuites: number;
+      numPendingTests: number;
+      numPendingTestSuites: number;
+      numRuntimeErrorTestSuites: number;
+      numTotalTests: number;
+      numTotalTestSuites: number;
+      startTime: number;
+      success: boolean;
+      testResults: TestResult[];
+      wasInterrupted: boolean;
   }
 
-  type Path = string;
-  type Glob = string;
-  type ConfigGlobals = object;
+  // Taken from https://goo.gl/nAzQ4J, removed all stuff that we are not using
+  interface TestResult {
+    failureMessage: Maybe<string>;
+    testResults: Array<AssertionResult>;
+  }
+
+  // Taken from https://goo.gl/drWMCB, removed all stuff that we are not using
+  interface AssertionResult {
+    duration?: Maybe<Milliseconds>;
+    failureMessages: string[];
+    fullName: string;
+    status: Status;
+  }
+
+  // 
+  type Milliseconds = number;
   type Maybe<T> = void | null | undefined | T;
+  type Status = 'passed' | 'failed' | 'skipped' | 'pending';
 }
 
 declare module "jest" {

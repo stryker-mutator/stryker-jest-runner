@@ -25,7 +25,7 @@ export default class ReactScriptsJestConfigLoader implements JestConfigLoader {
     return jestConfiguration;
   }
 
-  private createJestConfig(reactScriptsLocation: string): any {
+  private createJestConfig(reactScriptsLocation: string): Configuration {
     return createReactJestConfig(
       (relativePath: string): string => path.join(reactScriptsLocation, relativePath),
       this.projectRoot,

@@ -18,6 +18,7 @@ declare namespace Jest {
     collectCoverage: boolean;
     verbose: boolean;
     testResultsProcessor: Maybe<string>;
+    testEnvironment: string
   }
 
   interface RunResult {

@@ -7,8 +7,8 @@
       "**/*.js": {
         "when": "$(basename).ts"
       },
-      "**/*.d.ts": true,
-      "**/*.map": {
+      "src/**/*.d.ts": true,
+      "src/**/*.map": {
         "when": "$(basename)"
       }
     }

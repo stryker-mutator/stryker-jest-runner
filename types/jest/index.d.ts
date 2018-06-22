@@ -12,6 +12,7 @@ declare namespace Jest {
 
   // Taken from https://goo.gl/qHifyP, removed all stuff that we are not using
   interface Configuration {
+    rootDir: Maybe<Path>;
     reporters: Array<string>;
     bail: boolean;
     collectCoverage: boolean;
@@ -19,21 +20,15 @@ declare namespace Jest {
     testResultsProcessor: Maybe<string>;
   }
 
+  interface RunResult {
+    config: Configuration;
+    results: AggregatedResult;
+  }
+
   // Taken from https://goo.gl/h48ajP, removed all stuff that we are not using
   interface AggregatedResult {
-      numFailedTests: number;
-      numFailedTestSuites: number;
-      numPassedTests: number;
-      numPassedTestSuites: number;
-      numPendingTests: number;
-      numPendingTestSuites: number;
       numRuntimeErrorTestSuites: number;
-      numTotalTests: number;
-      numTotalTestSuites: number;
-      startTime: number;
-      success: boolean;
       testResults: TestResult[];
-      wasInterrupted: boolean;
   }
 
   // Taken from https://goo.gl/nAzQ4J, removed all stuff that we are not using
@@ -54,6 +49,7 @@ declare namespace Jest {
   type Milliseconds = number;
   type Maybe<T> = void | null | undefined | T;
   type Status = 'passed' | 'failed' | 'skipped' | 'pending';
+  type Path = string;
 }
 
 declare module "jest" {
